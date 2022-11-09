@@ -2332,6 +2332,235 @@ void solve()
 }
 ```
 
+# 动态规划
+
+## 背包问题
+
+### 01背包问题
+
+````c+
+const int N=1010;
+int w[N];
+int v[N];
+int f[N];
+int n,m;
+void solve()
+{
+    cin>>n>>m;
+    for(int i=1;i<=n;i++) cin>>v[i]>>w[i];
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=m;j>=v[i];j--)
+        {
+            f[j]=max(f[j],f[j-v[i]]+w[i]);
+        }
+    }
+    cout<<f[m]<<'\n';
+}
+````
+
+### 完全背包问题
+
+```c++
+const int N=1010;
+int f[N];
+int w[N],v[N];
+void solve()
+{
+    int n,m;
+    cin>>n>>m;
+    for(int i=1;i<=n;i++) cin>>v[i]>>w[i];
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=v[i];j<=m;j++)
+        {
+            f[j]=max(f[j],f[j-v[i]]+w[i]);
+        }
+    }
+    cout<<f[m]<<'\n';
+}
+```
+
+### 多重背包问题 I
+
+```c++
+const int N=1010;
+int f[N];
+int v[N],w[N];
+int s[N];
+void solve()
+{
+    int n,m;
+    cin>>n>>m;
+    for(int i=1;i<=n;i++) cin>>v[i]>>w[i]>>s[i];
+    for(int i=1;i<=n;i++)
+    {
+        for(int k=0;k<s[i];k++)
+        {
+            for(int j=m;j>=v[i];j--)
+            {
+                f[j]=max(f[j],f[j-v[i]]+w[i]);
+            }
+        }
+    }
+    cout<<f[m]<<'\n';
+}
+```
+
+### 多重背包问题 II
+
+1. 按照二进制进行枚举进行拆分
+
+```C++
+const int N=1000010;
+int v[N],w[N];
+int f[N];
+int main()
+{
+    int n,m;
+    scanf("%d%d",&n,&m);
+    int cnt=0;
+    for(int i=1;i<=n;i++)
+    {
+        int a,b,s;
+        cin>>a>>b>>s;
+        int k=1;
+        while(k<=s)
+        {
+            cnt++;
+            v[cnt]=a*k;
+            w[cnt]=b*k;
+            s-=k;
+            k*=2;
+        }
+        if(s>0)
+        {
+            cnt++;
+            v[cnt]=a*s;
+            w[cnt]=b*s;
+            
+        }
+        
+    }
+    n=cnt;
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=m;j>=v[i];j--)
+        {
+            f[j]=max(f[j],f[j-v[i]]+w[i]);
+        }
+    }
+    cout<<f[m]<<endl;
+    return 0;
+}
+```
+
+### 分组背包问题
+
+```c++
+const int N=110;
+int n,m;
+int v[N][N],w[N][N],s[N];
+int f[N];
+int main()
+{
+    scanf("%d%d",&n,&m);
+    for(int i=1;i<=n;i++)
+    {
+        scanf("%d",&s[i]);
+        for(int j=0;j<s[i];j++)
+        {
+            scanf("%d%d",&v[i][j],&w[i][j]);
+        }
+    }
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=m;j>=0;j--)
+        {
+            for(int k=0;k<s[i];k++)
+            {
+                if(j>=v[i][k])
+                {
+                    f[j]=max(f[j],f[j-v[i][k]]+w[i][k]);
+                }
+            }
+        }
+    }
+    cout<<f[m]<<endl;
+    return 0;
+}
+```
+
+## 区间DP
+
+1. 优先枚举长度
+
+```c++
+const int N=310;
+int s[N];
+int a[N];
+int f[N][N];
+void solve()
+{
+	/*
+	每一次只能合并相邻两堆
+	对于任何一个区间'
+	*/
+	int n;
+	cin>>n;
+	for(int i=1;i<=n;i++) cin>>a[i];
+	for(int i=1;i<=n;i++) s[i]=s[i-1]+a[i];
+	for(int len=2;len<=n;len++)
+	{
+		for(int i=1;i+len-1<=n;i++)
+		{
+			int l=i;
+			int r=i+len-1;
+			f[l][r]=0x3f3f3f3f;
+			for(int k=l;k<r;k++)
+			{
+				f[l][r]=min(f[l][r],f[l][k]+f[k+1][r]+s[r]-s[l-1]);
+			}
+		}
+	}
+	cout<<f[1][n]<<'\n';
+}
+```
+
+## 计数问题
+
+```c++
+const int mod=1e9+7;
+const int N=100010;
+int f[N];
+/*
+定义状态转移:
+f[i][j]表示从从前i个数字选,其中和为j的数字
+那么选第i个数字的时候,我们可以选择0个i 1 一个i 两个i
+f[i][j]=f[i-1][j]+f[i-1][j-1*i]+f[i-1][j-2*i]+----f[i-1][j-k*i];
+f[i][j-i]=         f[i-1][j-i]+f[i-1][j-2*i] -----f[i-1][j-k*i];
+所以可知道 f[i][j]=f[i-1][j]+f[i][j-i];
+压缩可知: 对于i,j 只会用到i-1行和i行的数据,所以我们可以压缩
+f[j]=(f[j]+f[j-i])%mod;
+*/
+void solve()
+{
+    int n;
+    cin>>n;
+    f[0]=1;
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=i;j<=n;j++)
+        {
+            f[j]=(f[j]+f[j-i])%mod;
+        }
+    }
+    cout<<f[n]<<'\n';
+}
+```
+
+
+
 # 其他
 
 ## 宏定义
