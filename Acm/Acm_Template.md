@@ -410,7 +410,7 @@ struct ModInt
 typedef ModInt<mod> mint;
 ```
 
-# 分数类
+## 分数类
 
 ```c++
 struct Frac
@@ -754,14 +754,14 @@ void solve()
 
 ## 字符串哈希
 
-1. 下标从0开始
+1. 下标从$1$开始
 2. 将字符串翻转然后哈希两次,就可以直接比较是否是`回文串`了
 
 ```c++
 struct Hash
 {
-    int n;//字符串长度
-    string s;//字符串
+	int n;
+    string s;
 	static constexpr int base1=20023;
 	static constexpr int base2=20011;
 	static constexpr ll mod1=2000000011;
@@ -770,26 +770,25 @@ struct Hash
 	Hash(){}
 	Hash(const string& _s)
 	{
-		n= _s.size();
+		n=_s.size();
         s="?"+_s;
 		hash.resize(n+1);
 		pow_base.resize(n+1);
 		pow_base[0][0] = pow_base[0][1] = 1;
 		hash[0][0] = hash[0][1] = s[0];
-		for(int i = 1; i <=n; i++){
+		for(int i = 1;i <= n; i++){
 			hash[i][0] = (hash[i - 1][0] * base1 + s[i]) % mod1;
 			hash[i][1] = (hash[i - 1][1] * base2 + s[i]) % mod2;
 			pow_base[i][0] = pow_base[i - 1][0]*base1%mod1;
 			pow_base[i][1] = pow_base[i - 1][1]*base2%mod2;
 		}
 	}
-	array<ll, 2> get_hash(const int &l,const int &r)
+	array<ll,2> get_hash(const int &l,const int &r)
     {
-        auto single_hash =[&](bool flag)
-        {
-            const ll mod=flag?mod2:mod1;
-            return ((hash[r][flag]-hash[l-1][flag]*pow_base[r-l+1][flag]%mod+mod)%mod+mod)%mod;
-        };
+		auto single_hash = [&](bool flag){
+			const ll mod=!flag?mod1:mod2;//注意顺序前面有!
+            return (hash[r][flag]%mod-hash[l-1][flag]%mod*pow_base[r-l+1][flag]%mod+mod)%mod;
+		};
 		return { single_hash(0),single_hash(1)};
 	}
 };
