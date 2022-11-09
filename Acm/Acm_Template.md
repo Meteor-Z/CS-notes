@@ -410,6 +410,64 @@ struct ModInt
 typedef ModInt<mod> mint;
 ```
 
+# 分数类
+
+```c++
+struct Frac
+{
+    long long x,y;
+    Frac(long long a,long long b=1ll)
+    {
+        long long _gcd=gcd(a,b);
+        x=a/_gcd,y=b/_gcd;
+    }
+    Frac operator +(const Frac &other) const
+    {
+        long long son=1ll*x*other.y+1ll*other.x*y;
+        long long mat=1ll*y*other.y;
+        return Frac(son,mat);
+    }
+    Frac operator -(const Frac &other) const
+    {
+        long long son=1ll*x*other.y-1ll*other.x*y;
+        long long mat=1ll*y*other.y;
+        return Frac(son,mat);
+    }
+    Frac operator *(const Frac &other) const
+    {
+        long long son=1ll*x*other.x;
+        long long mat=y*other.y;
+        return Frac(son,mat);
+    }
+    Frac operator /(const Frac &other) const
+    {
+        long long son=x*other.y;
+        long long mat=y*other.x;
+        return Frac(son,mat);
+    }
+    bool operator <(const Frac &other) const
+    {
+        return 1ll*x*other.y<1ll*y*other.x;
+    }
+    bool operator >(const Frac &other) const
+    {
+        return 1ll*x*other.y>1ll*y*other.x;
+    }
+    bool operator ==(const Frac &other) const
+    {
+        return 1ll*x*other.y==1ll*y*other.x;
+    }
+    bool operator <=(const Frac &other) const
+    {
+        return 1ll*x*other.y<=1ll*y*other.x;
+    }
+    bool operator >=(const Frac &other) const
+    {
+        return 1ll*x*other.y>=1ll*y*other.x;
+    }
+};
+```
+
 
 
 ## 欧拉函数
