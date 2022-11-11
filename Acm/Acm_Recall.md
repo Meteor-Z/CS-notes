@@ -8,6 +8,16 @@
 
 1. $2022年11月8日$,VP [2018-2019年多省比赛](https://vjudge.net/problem/Gym-102222A)倒数第一
 2. 2022年11月10日VP [2014年西安]([Dashboard - 2014-2015 ACM-ICPC, Asia Xian Regional Contest - Codeforces](https://codeforces.com/gym/100548)) 3-241 还是那么菜 
+3. 2022年11月11日VP [2022年CCPC威海](https://codeforces.com/gym/104023)  4-632 rank: 200 还是不行,差一点,最后一个铜牌题很简单,但是没时间了,没有码力,没有时间, 写题写的太复杂了
+4. 
+
+
+
+
+
+
+
+
 
 
 
