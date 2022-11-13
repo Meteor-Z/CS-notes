@@ -2567,47 +2567,45 @@ void solve()
 
 # 其他
 
-## 宏定义
+## 对拍
 
-```c++
-#include <bits/stdc++.h>
-using namespace std;
-#define IOS ios::sync_with_stdio(false);cin.tie(0);cout.tie(0)
-#define eps 1e-8
-#define int128 __int128
-#define gcd(a,b) __gcd(a,b)
-#define lcm(a,b) a/gcd(a,b)*b
-#define lowbit(x) (x&-x)
-#define all(x) x.begin(), x.end()
-#define debug(x...) do { cout<< #x <<" -> "; re_debug(x); } while (0)
-void re_debug() { cout<<'\n'; }
-template<class T, class... Ts> void re_debug(const T& arg,const Ts&... args) { cout<<arg<<" "; re_debug(args...); }
-int test=1;
-void cut(){cout<<"test:"<<' '<<test++<<'\n';}
-typedef long long ll; 
-typedef unsigned long long ull;
-typedef pair<int,int> PII;
-const int INF=0x3f3f3f3f;
-const ll LNF=0x3f3f3f3f3f3f3f3fll;
-const double PI=acos(-1.0);
-void solve()
-{
-  
-}
-int main()
-{
-	IOS;
-	int T=1;
-	cin>>T;
-	while(T--) solve();
-	return (0^0);
-}
+准备一下文件: (`放在同一个文件夹里面`)
+
+1. `brute.cpp` :暴力程序
+
+2. `std.cpp` :正确程序
+
+3. `makedata.cpp`:生成数据的程序
+
+4. `data.ans` 表示正确答案的输出
+
+5. `data.out` 表示暴力程序的输出
+
+6. `duipai.bat` 表示对拍的`bat` 
+
+   
+
+```bat
+@echo off 
+g++ .\duipai\brute.cpp -o brute -O2 -std=c++17
+g++ .\duipai\makedata.cpp -o makedata -O2 -std=c++17
+g++ .\duipai\std.cpp -o std -O2 -std=c++17
+set cnt=0
+:again
+    set /a cnt=cnt+1
+    echo TEST:%cnt%
+    
+    .\makedata >in
+    .\std <in >data.ans
+    .\brute <in >data.out
+    fc data.ans data.out
+if not errorlevel 1 goto again
+
 ```
 
 ## __int128
 
 ```c++
-//这里是因为头文件中#define了,请注意,不要开IOS
 int128 read(){
     int128 x = 0, f = 1;
     char ch = getchar();
