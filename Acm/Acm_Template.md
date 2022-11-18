@@ -598,6 +598,108 @@ void get_primes(int n)
 }
 ```
 
+## 高斯消元
+
+输入一个包含$n$个方程$n$个未知数的线性方程组
+
+方程组中的系数为实数
+
+求解这个方程组
+
+第一包含整数$n$
+
+接下来$n$行,每行包含$n+1$个整数,表示一个方程的$n$个系数以及等号右侧的常数
+
+无数解:输出`Infinite group solutions`
+
+无解:输出`No solution`
+
+测试样例:
+
+输入:
+
+ ```in
+3
+1.00 2.00 -1.00 -6.00
+2.00 1.00 -3.00 -9.00
+-1.00 -1.00 2.00 7.00
+ ```
+
+输出:
+
+```out
+1.00
+-2.00
+3.00
+```
+
+```c++
+const int N=1010;
+int n;
+double a[N][N];
+double eps=1e-6;
+int gauss() //所有的答案都在a[r][c] 中,然后最后进行求解
+{
+    int c,r;
+    //c 是列,row是行
+    for(c=0,r=0;c<n;c++)
+    {
+        int t=r;
+        for(int i=r;i<n;i++) //找到绝对值最大的行
+            if(fabs(a[i][c])>fabs(a[t][c])) t=i;
+        if(fabs(a[t][c])<eps) continue;
+        for(int i=c;i<=n;i++) swap(a[t][i],a[r][i]);
+        for(int i=n;i>=c;i--) a[r][i]/=a[r][c];//变成1
+        for(int i=r+1;i<n;i++)
+            if(fabs(a[i][c])>eps)
+            {
+                for(int j=n;j>=c;j--)
+                {
+                    a[i][j]-=a[r][j]*a[i][c];
+                }
+            }
+
+        r++;
+    }
+    if(r<n)
+    {
+        for(int i=r;i<n;i++)
+        {
+            if(fabs(a[i][n])>eps) return 2;//无解
+        }
+        return 1;//无穷解
+    }
+    for(int i=n-1;i>=0;i--)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            a[i][n]-=a[i][j]*a[j][n];
+        }
+    }
+    return 0;
+    
+}
+int main()
+{
+    scanf("%d",&n);
+    for(int i=0;i<n;i++)
+        for(int j=0;j<n+1;j++)
+            cin>>a[i][j];
+    int t=gauss();
+    if(t==2) cout<<"No solution"<<'\n';
+    else if(t==1) cout<<"Infinite group solutions"<<'\n';
+    else
+    {
+        for(int i=0;i<n;i++)
+        {
+            if(fabs(a[i][n])<eps) a[i][n]=0;
+            printf("%.2lf\n",a[i][n]);
+        }
+    }
+    return 0;
+}
+```
+
 # 字符串
 
 ## KMP
@@ -969,7 +1071,7 @@ void solve()
 }
 ```
 
-# SAM
+## SAM
 
 给定一个只包含小写字母的字符串 $S$,
 
@@ -1494,9 +1596,9 @@ int find(int u,int limit)
 {
     if(u==T) return limit;
     int flow=0;
-    for(int i=h[u];i!=-1&&flow<limit;i=ne[i])
+    for(int i=cur[u];i!=-1&&flow<limit;i=ne[i])
     {
-        cur[i]=i;
+        cur[u]=i;
         int j=e[i];
         if(d[j]==d[u]+1&&w[i])
         {
