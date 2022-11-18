@@ -468,6 +468,62 @@ struct Frac
 };
 ```
 
+## 矩阵快速幂
+
+1. `mat`矩阵是系数矩阵
+2. `f1`是初始矩阵
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const int N=3;
+int n;
+ll m;
+void mul(int c[],int a[],int b[][N])
+{
+    int temp[N]={0};
+    for(int i=0;i<N;i++)
+    {
+        for(int j=0;j<N;j++)
+        {
+            temp[i]=(1ll*temp[i]+1ll*a[j]*b[j][i])%m;
+        }
+    }
+    memcpy(c,temp,sizeof(temp));
+}
+
+void mul(int c[][N],int a[][N],int b[][N])
+{
+    int temp[N][N]={0};
+    for(int i=0;i<N;i++)
+        for(int j=0;j<N;j++)
+            for(int k=0;k<N;k++)
+                temp[i][j]=(1ll*temp[i][j]+1ll*a[i][k]*b[k][j])%m;
+
+    memcpy(c,temp,sizeof(temp));
+}
+void solve()
+{
+    cin>>n>>m;
+    int f1[N]={1,1,1};
+    int mat[][N]={
+        {0,1,0},
+        {1,1,1},
+        {0,0,1},
+    };
+    n--;
+
+    while(n)
+    {
+        if(n&1) mul(f1,f1,mat);
+        mul(mat,mat,mat);
+        n>>=1;
+    }
+    cout<<f1[2]%m<<'\n';
+}
+```
+
 
 
 ## 欧拉函数
