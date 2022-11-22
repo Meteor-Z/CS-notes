@@ -1,5 +1,13 @@
 # Linux相关软件的配置
 
+## pacman相关操作
+
+- 更新所有软件： `sudo pacman -Syu`
+- 查找软件：`pacman -Ss "XXX"`
+- 安装软件：`sudo pacman -S XXXX`
+- 卸载软件：`sudo pacman -R XXX`
+- 
+
 ## Java/IDEA的相关配置
 
 1. 下载`JDK`和IDEA : 直接使用`pacman`进行安装是
