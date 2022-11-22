@@ -74,4 +74,12 @@
 - `ctrl+同时按住方向左右`：调整`tmux`的大小
 - `ctrl+b z`:开启全屏/取消全屏
 - `ctrl+b d`:挂起当前的`tmux`
-- `ctrl+b s`:
+- `ctrl+b s`:展开所有的`session`
+- `ctrl+b w`:展开到所有的`window`
+
+
+
+## vim
+
+
+
