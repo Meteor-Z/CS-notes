@@ -186,5 +186,53 @@ $(command) # 返回command的stdout
 
 ```
 
+### 数组
+
+```bash
+# 数组 
+# 跟JS的表达差不多，但是只支持一维数组，并且不需要指明大小
+
+arrary=(1 abc "def" lzc) # 每一个元素用空格隔开 并且注意是小括号
+
+# 也可以直接定义数组中的某一个元素的值
+arr[0]=1;
+arr[1]=abc
+
+# 读取数组的值
+echo ${arr[0]}
+
+# 读取整个数组
+${arr[*]} or ${arr[@]} # 比较喜欢用*
+
+# 求数组的长度
+${#arr[*]} or ${#arr[@]} # 比
+```
+
+### expr命令
+
+```bash
+# expr 可以求表达式值
+
+# 字符串长度  $() 表示输出到标准输出流里面，就是显示在屏幕上
+echo $(expr length ${string}) # 输出整个字符串的长度
+
+# 返回任意当个字符在String中出现的位置
+echo $(expr index ${string} a)
+
+# 截取某一个字符 从1开始？
+echo $(expr substr ${string} 2 3) # 输出字符串string {2，3}之间的
+
+#数字求值
+
+
+
+```
+
+
+
+
+
+
+
 
 
