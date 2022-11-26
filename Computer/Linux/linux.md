@@ -332,13 +332,15 @@ kill -9 PID # 直接杀掉进程
 
 ```
 
+## SSH登录
 
+直接 `ssh user@hostname - p 22`以用户名user的形式登录到hostname里面，然后进入的端口是22
 
+- `ssh-copy-id myserver`:一键配置自己的公钥给服务器
+- `ssh -r 自己的文件名 myserver:服务器的地址`：进行传输文件
+- 通过传文件可以将自己电脑上的配置文件传送给服务器上进行配置
 
-
-
-
-
+### Git
 
 
 

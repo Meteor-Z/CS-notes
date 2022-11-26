@@ -26,6 +26,9 @@ set nu
 inoremap ( ()<ESC>i
 inoremap [ []<ESC>i
 inoremap { {}<ESC>i
+
+" 设置大括号自动缩进
+imap {<CR> {<CR>}<ESC>O
 ```
 
 
@@ -51,3 +54,6 @@ export PATH=${JAVA_HOME}/bin:$PATH
 
 只要修改`coder runner` 里面的命令就可以了
 
+## Clash For Window 的配置代理
+
+分别在`/etc/profile`和``
