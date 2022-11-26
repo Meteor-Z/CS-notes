@@ -208,7 +208,7 @@ ${arr[*]} or ${arr[@]} # 比较喜欢用*
 ${#arr[*]} or ${#arr[@]} # 比
 ```
 
-### expr命令
+### expr
 
 ```bash
 # expr 可以求表达式值
@@ -222,11 +222,131 @@ echo $(expr index ${string} a)
 # 截取某一个字符 从1开始？
 echo $(expr substr ${string} 2 3) # 输出字符串string {2，3}之间的
 
-#数字求值
+#进行数字求值
+echo $(expr $a + $b) # 注意 expr里面没有括号了
+
+```
+
+### read
+
+```bash
+# 进行相关的读写
+
+read -p "What's your name" -t n name # -p 是解释说明 -t 是等待n秒
+echo "你好："${name}
+```
+
+### echo
+
+```bash
+
+echo -e "你好"  # -e 是开启转移
+
+# 转移的的\
+-c # 取消echo的回车
+-n # 是回车
+>in.txt # 重定向 输出到in.txt里面就行了
+
+# 时间
+echo $(date) # data是时间，能显示当前的时间
+
+```
+
+### printf
+
+```bash
+# 跟C/C++ 差不多，只不过是使用空格进行隔开
+printf "%.2lf" 3.23222  # 这样就可以了
+```
+
+### test
+
+```bash
+# test 命令主要是用于判断文件类型，以及对变量进行做比较
+test -命令  比较
+
+-r 文件是否可读
+-w 文件是否可写
+-s 是否是非空
+-x 判断是否可以执行
+
+
+
+数值比较
+test $a -eq $b
+-eq equal 是否相同
+-ne no equal 是否不相同
+-gt greater than 是否大于
+-lt less than 是否小于
+-ge greater and equle 是否大于等于
+-le less and equle 是否小于等于
+
+
+字符串比较
+test -z string 字符串是否为空 (? zero)
+test -n string 是否非空   ()
+test str1==str2 是否相同
+test str1!=str2 是否不相同
+
+多重判定：
+-a 两条件是否同时存在  and
+-o 两条件是否至少有一个成立 or
+!  取反
+
+[]可以完全取代test-
+两者的形式是一样的
+```
+
+### 循环语句
+
+```bash
+# 输出 列出的几个元素
+
+for i in a b c 11 22 33
+do
+	echo $i
+done
+
+
+# 输出当前路径下的所有文件名
+for i in $( ls )
+do
+	echo $i
+done
+
+# 循环输出1到100 seqencue 序列的前三个单词
+for i in $(seq 1 100) #  or {1..10} {a...z}
+do
+	echo $i
+done
+
+while read name
+do
+	echo $name
+done
+
+# 直接关闭进程
+kill -9 PID # 直接杀掉进程
 
 
 
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

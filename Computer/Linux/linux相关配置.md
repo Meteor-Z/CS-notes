@@ -12,7 +12,8 @@
 配置列表在`/etc/vimrc目录下`
 
 ```bash
-"  设置缩进的代码set ts=4
+"  设置缩进的代码
+set ts=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -21,10 +22,10 @@ set autoindent
 " 设置显示行号
 set nu
 
-" 设置括号自动补全inoremap ( ()<ESC>i
+" 设置括号自动补全
+inoremap ( ()<ESC>i
 inoremap [ []<ESC>i
 inoremap { {}<ESC>i
-inoremap < <><ESC>i
 ```
 
 
