@@ -354,8 +354,7 @@ kill -9 PID # 直接杀掉进程
 - `git reset --hard HEAD^` 或者`git reset --hard HEAD~`:将代码库回滚到上一个版本
 - `git reset --hard 版本号`：回滚到某一个特定版本 ：回滚过后，文件就会改变
 - `git reflog`:查看`HEAD`的移动路径
-
-
+- `git restore`:将所有的修改撤回
 
 
 
