@@ -92,6 +92,9 @@
   - `wc -l`:统计行数 （line）
   - `wc -w`:统计单词数（word）
   - `wc -c`:统计字节数（char）
+- `watch -n 0.1 命令`：每0.1秒执行一下这个命令
+- `tar -zcvf ttt.tar.gz test`:将test这个目录全部压缩承ttt.tar.gz
+- `tar -zxvf ttt.tar.gz` ：解压
 
 ## tmux
 
