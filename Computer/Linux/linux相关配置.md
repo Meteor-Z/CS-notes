@@ -35,9 +35,9 @@ imap {<CR> {<CR>}<ESC>O
 
 ## Java/IDEA的相关配置
 
-1. 下载`JDK`和IDEA : 直接使用`pacman`进：行安装是
+1. 下载`JDK`和IDEA : 直接使用`pacman`进行安装
 
-2. JVM会安装到`/usr/bin目录里面，`
+2. JVM会安装到`/usr/lib目录里面，`
 
 3. 在`/etc/prpfile`中添加以下进行配置（这是永久有效的）
 
