@@ -1,7 +1,10 @@
 # 字符串
 
-1. $String$不能被修改，如果打算修改字符串，可以使用$StringBuilder$和$StringBuffer$
-2. $StringBuffer$ 线程安全,速度较慢,$StringBuilder$ 线程不安全,速度较快
+- $String$不能被修改，如果打算修改字符串，可以使用$StringBuilder$和$StringBuffer$
+
+- $StringBuffer$ 线程安全,速度较慢
+
+- $StringBuilder$ 线程不安全,速度较快
 
 # 函数
 
@@ -36,4 +39,43 @@
 1. 感觉更多是一种规范,规范这种行为,接口里面对应的东西,继承了接口必须要实现接口中的所有方法,并且方法中的所有东西都是抽象的,就是没有实现使用`Implements`来进行继承这个接口,
 
 
+
+# 时间类
+
+- `Data`:时间
+  - 最基础的功能，只要就是获取当前的时间和设置当前的时间
+
+- `SimpleDataFormat`:格式化时间
+  - 最主要的功能`format`和`parse`，来对当前的数据进行翻译和解析，转换成人能看懂的时间
+
+- `Calendar`:日历
+  - 功能更加高级，可以通过`Date`来修改或者直接通过毫秒值直接修改，然后还可以直接为某一个字段进行修改，或者增加/减少，其实就是就是更加方便了
+  - 但是对于国内还是有所区别：
+    - 月份：`0~11`:要加上一个月
+    - 星期：老外中`星期日`是`星期1` 在编写的时候要注意一下
+
+- `JDK8`新增的事件类
+  - Date:
+    - `ZoneID`:时区
+    - `Instant`:时间戳
+    - `ZoneDateTime`:带时区的时间
+  - `SimpleDateFormat`:
+    - `DateTimeFormatter`：用于时间的格式化与解析
+  - `Calendar`:
+    - `LocalDate`:年月日
+    - `LocalTIme`:`时分秒`
+    - `LocalDateTime`:年月日，时分秒
+  - 工具类：
+    - `Duration`:时间间隔（秒，纳秒）
+    - `Period`:时间间隔（年月日）
+    - `ChronoUnit`:时间间隔（所有单位）
+
+#  异常
+
+- `Java.lang.Throwable`
+  - `Error`:不需要关系，属于严重问题
+  - `Excption`:程序可能出现的问题
+  - 
+
+# IO流
 
