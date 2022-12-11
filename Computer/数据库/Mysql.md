@@ -138,12 +138,175 @@ LIMIT
 ```
 
 - 基本查询
-  - 查询多个字段：`SELECT 字段1，字段2，字段3 FROM 表名；` `SELECT * FROM 表名`
-  - 
+
+  - 查询多个字段：`SELECT 字段1 [AS '别名']，字段2，字段3 FROM 表名；` `SELECT * FROM 表名`
+  - 查询多个字段但是要去重: `DISTINCT`
+  - 练习
+
+  ```sql
+  # 查询年龄等于 88 的员工
+  WHERE age = 88;
+  
+  # 查询年龄小于 20 的员工
+  WHERE age < 20;
+  
+  # 查询年龄大于等于 20 的员工
+  WHERE age >= 20;
+  
+  # 查询没有身份证的员工
+  WHERE idcard IS NULL;
+  
+  # 查询有是身份证的员工
+  WHERE idcard IS NOT NULL;
+  
+  # 查询年龄不等于88的员工
+  WHERE age != 88;
+  WHERE age <> 88;
+  
+  # 查询年龄在15到20岁的员工之间的学生
+  WHERE 15 <= age && age <= 20;
+  WHERE 15 <= agea AND age <= 20; # 推荐用这种形式或者下面这种写法
+  WHERE age BETWEEN 15 AND 20; # 不能写反~~
+  
+  # 查询性别为女并且年龄小于25的员工
+  WHERE gener = '女' and age < 25;
+  
+  # 查询年龄等于18 或者 20 或者40 的员工
+  WHERE age = 18 or age = 20 or age = 40;
+  WHERE age=18 or age=20 or age=40;
+  WHERE age in(18,20,40);
+  
+  # 查询姓名是两个字的员工
+  WHERE age LIKE ‘__’;
+  
+  # 查询身份证最后一个是X的员工
+  WHERE idcard LIKE '%X';
+  ```
+
+  - `BETWEEN ---- AND ----`:在某一个范围（包含最小和最大值）
+  - `IN(条件1，条件2，条件3)`：只要满足其实一个条件就可以了
+  - `LIKE 占位符`：
 
 
 
+### 集合函数
 
+- 常见的聚合函数
+
+  - `COUNT`:统计数量  
+
+  - `MAX`:最大值
+
+  - `MIN`:最小值
+
+  - `AVG`：平均值
+
+  - `SUM`:求和
+
+- 语法：`SELECT 聚合函数（字段列表）FROM 表名`
+
+- 练习：
+
+  ```sql
+  # 统计所有员工的数量
+  SELECT COUNT(id) FROM emp;
+  
+  # 统计企业员工的平均年龄
+  SELECT AVG(age) FROM emp;
+  
+  # 统计西安的地区年龄之和
+  SELECT SUM(age) FROM emp WHERE address = '西安';
+  
+  ```
+
+- 注意：所有聚合函数中的时候不会统计空值的
+
+###  分组查询
+
+- 语法：`SELECT 字段列表 FROM 表名 [WHERE 条件] GROUP BY 分组字段名 [HAVING 分组过滤条件]`
+- 注意：`HAVING`和`WHERE`的区别：
+  - 执行时机不同：`WHERE`是分值之前进行过滤,`HAVING`是分组之后进行考虑
+  - `判断条件不同`：`WHERE`不能对聚合函数进行判断，`HAVWING`里面可以使用聚合函数
+- 练习
+
+```sql
+# 根据性别分组，统计男性员工和女性员工的数量
+SELECT gender, COUNT(id) FROM emp GROUP BY gender;
+
+# 统计男性员工和女性员工的平均年龄
+SELECT gender,avg(age) FROM emp GROUP BY gender;
+
+# 查询年龄小于45的员工的数量，并根据工作地址分组，获取员工数量大于等于3的工作地址
+SELECT workarress,COUNT(*) FROM emp WHERE  age < 45 GROUP BY workaddress HAVING count(*) >= 3;
+```
+
+###  排序查询
+
+- 语法:`SELECT 字段列表 FROM 表名 ORDER BY 字段1 排序方式1，字段2 排序方式2`;
+
+- 排序方式：
+
+  - `ASC`:升序 (默认值)
+  - 'DESC':降序
+
+- 练习：
+
+  ```sql
+  # 根据年龄对公司的员工进行升序排序
+  SELECT name FROM emp ORDER BY age ASC;
+  
+  # 根据入职时间，对于员工进行降序排序
+  SELECT * FROM emp ORDER BY entrydate DESC;
+  
+  # 根据年龄对公司的员工进行升序排序，如果相同，再按照入职时间进行降序排序
+  SELECT * FROM emp ORDER BY age ASC,entrydate DESC;
+  ```
+
+  ### 分页查询
+
+  其实就是第一页，第二页，第三页，第四页那种
+
+  - 语法：`SELECT 字段列表 FROM 表名 LIMIT 起始索引，查询记录数`
+
+  - 练习：
+
+    ```` sql
+    # 查询第一页的员工数据，每行展示10条记录
+    SELECT * FROM emp LIMIT 0,10;
+    
+    # 查询第二页员工数据，每行展示10条记录
+    SELECT * FROM emp LIMIT 1,10;
+    ````
+
+### 总练习
+
+```sql
+# 查询年龄为20，21，22，23的女性员工
+SELECT * FROM emp WHERE age in(20,21,22,23) AND gender = '女';
+
+# 查询性别是男，并且年龄在20-40岁之间并且姓名是3个字的员工
+SELECT * FROM emp WHERE gender = '男' AND age BETWEEN 20 AND 40 AND name LIKE '___';
+
+# 查询员工表中，年龄小于60岁的，男性员工和女性员工的数量
+SELECT gender,COUNT(*) FROM emp WHERE age < 60 GROUP BY gender;
+
+# 查询所有年龄小于等于35岁员工的性别和年龄，并且对于结果按照升序排序，如果年龄相同的按照入职时间进行降序
+SELECT name AS ‘姓名’,age AS '年龄' FROM temp WHERE age <=35 ORDER BY age ASC,entydate DESC;
+
+# 查询性别是男，并且年龄是在20-40岁之间的前5个员工，对查询的结果按照年龄升序排序，年龄相同按照入职时间升序排序
+SELECT * FROM temp WHERE gender = '男' AND age BETWEEN 20 AND 40 ORDER BY age ASC, entrydate DESC LIMIT 0,5;
+
+
+```
+
+### 用户管理
+
+最难不过坚持 
+
+# 注意事项
+
+- 写代码的时候尽量不要写`*`，因为这样不直观
+- 
 
 
 
