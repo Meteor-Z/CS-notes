@@ -75,7 +75,6 @@ ALTER user 'root'@'localhost' IDENTIFIED BY '新密码';
 ### 数据类型
 
 - 数值类型：`INT` `LONG` `DOUBLE`和前面+`UNSIGNED` 如果省内存的话上网搜
-
 - 字符串：
   - `VARCHAR()`：普通的字符串 （不建议用`CHAR`吧？ 建议用`VARCHAR`）
   - `BLOB`:二进制数据 （字节）
@@ -84,7 +83,6 @@ ALTER user 'root'@'localhost' IDENTIFIED BY '新密码';
   - `DATA`:日期值 `YYYY-MM-DD`
   - `TIME`: 时间值 `HH:MM:SS`
   - `DATATIME`:日期时间 `YYYY-MM-DD HH:MM:SS`
-  - 
 
 ### 数据库操作
 
@@ -100,14 +98,52 @@ ALTER user 'root'@'localhost' IDENTIFIED BY '新密码';
 - 查询
   - 查询当前数据库中的所有表：`SHOW TABLES;`
   - 查询表结构：`DESC 表名`
+  
 - 修改：
-  - 添加字段:`ALTER TABLE 表名` ADD `字段名` 类型 [COMMENT 注释] [约束];
+  - 添加字段:`ALTER TABLE 表名` ADD `字段名` 类型 [COMMENT 注释] [约束]; 
   - 修改数据类型：`ALTER TABLE 表名 MODIFY 字段名 新数据结(长度)`
   - 修改字段名和字符类型：`ALTER TABLE `旧表名 新表名` 类型（长度） [COMMENT 注释] [约束]
   - 删除字段：`ALTER TABLE 表名 DROP 字段名`
   - 修改表名：`ALTER TABLE 表名 RENAME TO 新表名`
   - 删除表明：`DROP TABLE [IF EXISTS] 表名`
   - 删除表名并且创建改表：`TRUNCATE TABLE 表名`
+  
+  
+
+### 插入
+
+- 添加数据
+  - 给指定字段添加数据：`INSERT INTO 表名（字段名,字段名2）VALUES(值1，值2)`
+  - 全部字段添加数据：`INSERT IN TO 表名 VALUESE(值1，值2，值3)`，
+- 修改数据：`UPDATE 表名 SET 字段名1=值1,字段名=值2。。。 [WHERE 条件]`
+- 删除数据：`DELETE 表名 [WHERE 条件]` （这个数据就没有了）
+
+### 查询
+
+```sql
+SELECT 
+	字段列表
+FROM 
+	表名列表
+WHERE
+	条件列表
+GROUP BY
+	分组字段列表
+HAVING
+	分组后条件列表
+ORDER BY
+	排序字段列表
+LIMIT
+	分页参数
+```
+
+- 基本查询
+  - 查询多个字段：`SELECT 字段1，字段2，字段3 FROM 表名；` `SELECT * FROM 表名`
+  - 
+
+
+
+
 
 
 
