@@ -299,14 +299,134 @@ SELECT * FROM temp WHERE gender = '男' AND age BETWEEN 20 AND 40 ORDER BY age A
 
 ```
 
-### 用户管理
+# 用户管理
 
-最难不过坚持 
+- 查询用户
+
+  ```mysql
+  USE mysql;
+  SELECT * FROM user;
+  ```
+
+- 创建用户:
+
+  ```mysql
+  CREATE USER '用户名' @ '主机名' IDENTIFIED BY ‘密码‘
+  ```
+
+- 练习
+
+  ```mysql
+  # 创建一个用户 lzc, 只能在当前主机localhost上访问，密码123456
+  CREATE USER 'lzc'@'localhost' IDENTIFIED BY '123456';
+  
+  # 创建一个用户LZC，在任意的的主机都可以访问数据库，密码123456
+  CREATE USER 'LZC'@‘%’ IDENTIFIED BY ‘123456’;
+  
+  # 修改用户密码
+  ALTER USER 'lzc'@'localhost' IDENTIFIED  WITH mysql_native_password BY '1234';
+  
+  # 删除用户
+  DROP USER '用户名'@'主机名';
+  ```
+  
+
+#
+
+### 权限控制
+
+- `ALL,ALL PRIVIEGES`:所有权限
+- `SELECT`：查询数据
+- `INSERT`:插入数据
+- `UPDATE`:修改数据
+- `DELETE`:删除数据
+- `ALTER`:修改表
+- `DROP`:删除数据库/表/视图
+- `CREATE`:创建数据库/表
+
+
+
+- 查询权限：`SHOW GRANTS FOR ‘用户名@主机名’`;
+- 授予权限：`GRANT 权限列表 ON 数据库名.表名 TO ‘用户名’@‘主机名’`；
+- 赊销权限：`REVOKE 权限列表 on 数据库名.表名 FROM ‘用户名’@‘主机名’`；
+- 
+
+
+
+# 函数
+
+感觉没啥用，还不如直接用`JAVA`中的函数了，而且更好些
+
+# 约束
+
+概念：约束是作用于表中字段上的规则，用于限制存储在表中的数据
+
+目的：保证数据库中的数据的正确，有效性和完整性
+
+​	非空约束：`NOT NULL`;
+
+唯一约束：`UNIQUE` 身份证号 手机号 id 什么的
+
+主键约束：`PRIMARY KEY` 一行数据的唯一标识，要求非空且唯一  规范！
+
+默认约束:`DEFAULT`
+
+检查约束：默认状态下这个字段的默认值
+
+外键约束：`FOREIGN KEY` 让两张表之间建立连接，保证数据的一致性和完整性
+
+- 练习
+
+  | 字段名 | 字段含义   | 字段类型    | 约束条                    |
+  | ------ | ---------- | ----------- | ------------------------- |
+  | id     | ID唯一标识 | int         | 主键，并且自动增长        |
+  | name   | 姓名       | varchar(20) | 不为空，并且唯一          |
+  | age    | 年龄       | int         | 大于0，并且小于等于120    |
+  | status | 状态       | char(1)     | 如果没有指定该值，默认是1 |
+  | gender | 性别       | char(1)     | 无                        |
+
+```sql
+# SQL 代码实现
+CREATE TABLE emp(
+    id int PRIMARY KEY AUTO_INCREMENT comment '主键',
+    name varchar(10) NOT NULL UNIQUE  COMMENT '姓名',
+    age int check ( 0 < age AND age <= 120 ) COMMENT '年龄',
+    status char(1) DEFAULT '1' COMMENT '状态',
+    gender char(1)  COMMENT '性别'
+)comment '用户表';
+
+# 插入
+INSERT INTO emp(name,age,status,gender) VALUES('TOM1',18,'1','男');
+INSERT INTO emp(name,age,status,gender) VALUES('TOM2',19,'1','女');
+INSERT INTO emp(name,age,status,gender) VALUES('TOM3',20,'1','女');
+```
+
+## 外键
+
+作用：将两张表的数据之间建立连接，从而保证数据的一致性和完整性
+
+语法与练习：
+
+```sql
+# 添加外键
+ALTER TABLE 表名 ADD CONSTRAINT 外键名称（随便起） FOREIGN KEY(外键字段名) REFERENCES 主表（主表列表） # 一个表的字段关联到了另一一个表的主键，使得这两个表之间有关联
+
+# 消息
+ALTER TABLE emp ADD CONSTRAINT fk_emp_dept_id (dept_id) REFERENCES dept(id);
+
+
+```
+
+
+
+
+
+
 
 # 注意事项
 
 - 写代码的时候尽量不要写`*`，因为这样不直观
-- 
+- 规范，每一张表都要有一个主键约束
 
 
 
