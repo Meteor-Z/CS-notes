@@ -326,7 +326,21 @@ SELECT * FROM temp WHERE gender = '男' AND age BETWEEN 20 AND 40 ORDER BY age A
   # 修改用户密码
   ALTER USER 'lzc'@'localhost' IDENTIFIED  WITH mysql_native_password BY '1234';
   
-  # 删除用户
+  # 删除 Class.forName("com.mysql.cj.jdbc.Driver");
+          //String url = "jdbc::mysql://127.0.0.1:3306/mysql_study";
+          String url="jdbc:mysql://localhost:3306/mysql_study?useSSL=false&serverTimezone=UTC";
+          String userName = "root";
+          String passWord = "200298";
+          Connection connection = DriverManager.getConnection(url, userName, passWord);
+          String sql = "UPDATE emp SET money = 2000 WHERE id = 1";
+  
+          //获取sql执行的对象
+          Statement statement = connection.createStatement();
+          int count = statement.executeUpdate(sql);
+          System.out.println(count);
+          statement.close();
+          connection.close();
+  用户
   DROP USER '用户名'@'主机名';
   ```
   
@@ -349,9 +363,6 @@ SELECT * FROM temp WHERE gender = '男' AND age BETWEEN 20 AND 40 ORDER BY age A
 - 查询权限：`SHOW GRANTS FOR ‘用户名@主机名’`;
 - 授予权限：`GRANT 权限列表 ON 数据库名.表名 TO ‘用户名’@‘主机名’`；
 - 赊销权限：`REVOKE 权限列表 on 数据库名.表名 FROM ‘用户名’@‘主机名’`；
-- 
-
-
 
 # 函数
 
@@ -427,6 +438,41 @@ ALTER TABLE emp DROP FOREIGN KEY  外键名称
   - `NO ACTION`:
 
 
+
+# JDBC
+
+全称是指`JAVA DataBase Connectitives 就是连接数据库用的软件
+
+其实就是一个接口，然后让各大数据库厂商封装了`jar`来实现这个，相当于一个驱动，然后通过这个来进行调用
+
+- 实现方法：
+
+  ```java
+  //注册驱动，其实就是反射，然后将这个注入到内存中
+  Class.forName("com.mysql.cj.jdbc.Driver");
+  
+  // url 连接， 对应的用户名和密码，
+  //String url = "jdbc::mysql://127.0.0.1:3306/mysql_study";
+  String url="jdbc:mysql://localhost:3306/mysql_study?useSSL=false&serverTimezone=UTC";
+  String userName = "root";
+  String passWord = "200298";
+  // 通过这个驱动来
+  Connection connection = DriverManager.getConnection(url, userName, passWord);
+  String sql = "UPDATE emp SET money = 2000 WHERE id = 1";
+  
+  //获取sql执行的对象
+  Statement statement = connection.createStatement();
+  
+  // cout是获取的行数
+  int count = statement.executeUpdate(sql);
+  System.out.println(count);
+  // 关闭资源，注意一定要先开后关
+  statement.close();
+  connection.close();
+  
+  ```
+
+  
 
 
 
