@@ -409,15 +409,22 @@ INSERT INTO emp(name,age,status,gender) VALUES('TOM3',20,'1','女');
 
 ```sql
 # 添加外键
-ALTER TABLE 表名 ADD CONSTRAINT 外键名称（随便起） FOREIGN KEY(外键字段名) REFERENCES 主表（主表列表） # 一个表的字段关联到了另一一个表的主键，使得这两个表之间有关联
+ALTER TABLE 表名 ADD CONSTRAINT 外键名称（随便起） FOREIGN KEY(外键字段名) REFERENCES 主表（主表列表） ON UPDATE CASCADE ON DELETE CASCADE# 一个表的字段关联到了另一一个表的主键，使得这两个表之间有关联
 
-# 消息
+# 练习
 ALTER TABLE emp ADD CONSTRAINT fk_emp_dept_id (dept_id) REFERENCES dept(id);
 
+# 删除外键
+ALTER TABLE emp DROP FOREIGN KEY  外键名称
 
 ```
 
 
+
+## 外键约束
+
+- 行为：
+  - `NO ACTION`:
 
 
 
