@@ -278,6 +278,65 @@ SELECT workarress,COUNT(*) FROM emp WHERE  age < 45 GROUP BY workaddress HAVING 
     SELECT * FROM emp LIMIT 1,10;
     ````
 
+### 多表关系
+
+学生与课程的关系，一个学生可以选择多门课程，一门课程也可以供多个学生选择，
+
+如何实现：建立第三张中间表，中间表至少包含两个外键，外键是关联到了其他两张表的主键
+
+### 多表查询
+
+- 笛卡尔积：A集合和B集合所有的组合情况（在多表查询的时候，要消除掉无效的笛卡尔积）
+
+  ```sql
+  # 要消除掉无效的笛卡尔积 
+  SELECT * FROM a, b WHERE a.id = b.id;
+  ```
+
+- 内连接：返回的是两张表之间交集的部分
+
+  ```sql
+  # 隐式连接
+  SELECT 字段列表 FROM 表1,表2 WHERE 条件;
+  
+  # 显式连接 效率更高
+  SELECT 字段列表 FROM 表1 [INNER] JOIN 表2 ON 连接条件;
+  
+  # 左外连接 会完全包含左边的数据
+  SELECT 字段列表 FROM 表1 LEFT JOIN 表2 ON 连接条件;
+  
+  # 右外连接 会完全包含右边的数据
+  SELECT 字段列表 FROM 表1 RIGHT JOIN 表2 ON 连接条件;
+  
+  ```
+
+- 自连接
+
+  - 自连接 (看成两张表，并且这个必须起别名才能使用)
+
+    ```sql
+    SELECT 字段列表 FROM 表1 别名A JOIN 表A 别名B ON 条件--;
+    
+    # 查询员工以及所属领导的名字
+    SELECT a.name b.name FROM emp a,emp b WHERE a.managerid = b.id;
+    
+    ```
+
+### 联合查询
+
+- 将两张表 直接合并起来 注意与`OR`来区分出来
+
+- 并且多表之间的字段的数量要保证一致，并且字段要一样
+
+  ```sql
+  # 将薪水小于5000 的人和年龄大于 50的人查询出来
+  SELECT * FROM emp WHERE salary < 5000
+  UNION
+  SELECT * FROM emp WHERE age > 50;
+  ```
+
+  
+
 ### 总练习
 
 ```sql
@@ -298,6 +357,52 @@ SELECT * FROM temp WHERE gender = '男' AND age BETWEEN 20 AND 40 ORDER BY age A
 
 
 ```
+
+### 子查询
+
+- 标量子查询
+
+  ```sql
+  # 查询销售部的所有员工的信息
+  SELECT id FROM dept WHERE name = '销售部';
+  
+  # 根据销售部ID,来查询员工消息
+  SELECT * FROM WHERE dept_id = 4;
+  
+  # 将这两个信息合并成一个信息
+  SELECT * FROM emp WHERE dept_id = (SELECT id FROM dept WHERE name = ‘销售部’);
+  ```
+
+- 列子查询: 查询的结果是一列（可以是多行的一列） 这样的就叫做子查询
+
+  ```sql
+  # 查询销售部和市场部的所有信息
+  # a. 查一下销售部和市场部的部门ID
+  # b. 根据部门ID，查询员工消息
+  SELECT id FROM dept WHERE name = '销售部' OR name = '市场部';
+  SELECT * FROM emp WHERE dept_id in (2,4);
+  # 合并
+  SELECT * FROM emp WHERE dept_id in (SELECT id FROM dept WHERE name = '市场部' OR name = '销售部');
+  
+  # 查询比财务部所有工资都高的员工信息 这里用户ALL 或者MAX 都可以
+  SELECT * FROM emp WHERE money > ALL(SELECT money FROM emp WHERE dept = '财务部');
+  ```
+
+- 行子查询（可以返回多列）
+
+  ```sql
+  # 查询与张无忌薪资以及直属领导相同的员工信息
+  SELECT * FROM emp WHERE (salary,mangerid) = (子条件查询，id);
+  ```
+
+- 表子查询：返回的结果是多行多列，这种子查询称作为表子查询
+
+  ```sql
+  # 查询与A or B 职位和薪资相同的员工信息
+  SELECT job,salary FROM emp WHERE name in('A','B');
+  ```
+
+  
 
 # 用户管理
 
@@ -345,9 +450,9 @@ SELECT * FROM temp WHERE gender = '男' AND age BETWEEN 20 AND 40 ORDER BY age A
   ```
   
 
-#
 
-### 权限控制
+
+# 权限控制
 
 - `ALL,ALL PRIVIEGES`:所有权限
 - `SELECT`：查询数据
@@ -439,6 +544,14 @@ ALTER TABLE emp DROP FOREIGN KEY  外键名称
 
 
 
+# 事务
+
+事务：所有操作作为一个整体一起向系统提交或者撤销操作请求，这些操作要么同时成功，要么同时失败
+
+经典案例：转账
+
+如果其中一个是错误的，那么全部都要进行回滚，
+
 # JDBC
 
 全称是指`JAVA DataBase Connectitives 就是连接数据库用的软件
@@ -472,9 +585,40 @@ ALTER TABLE emp DROP FOREIGN KEY  外键名称
   
   ```
 
+
+
+
+## JDBC API
+
+- `DriveManger`:作用：
+  - 注册驱动，因为其实是一个接口，然后这个驱动来来得到这个实现类（或者数据库连接
+
+- `Connection`作用：获取这个连接
+
+- `ResultSet`作用： 获取结果集的一个集合,可以通过这个对象来获得这些数据,可以装到`ArryList`里面
+
+- `PreparedStatement`的作用：防止`SQL`注入？ 不太懂怎么`sql`注入，呜呜
+
+  ```sql
+  # 其实就是后面字符串拼接的时候发生了错误.
+  # 原本的登录成功的sql语句是
+  SELECT * FROM tb_user WHERE username = 'abc' AND password = '123';
+  # 现在变成了这个
+  SELECT * FROM tb_user WHERE username = 'abc' AND password = '' OR '1' = '1';
   
+  # 如何防止 其实就是转义了一下，然后就可以了
+  ```
 
+# 数据库连接池
 
+- 数据库连接池是一个容器，负责分配，管理数据库的连接
+- 允许应用程序重复使用一个现有的数据库连接，而不是重复建立一个
+- 可以避免因为没有释放数据库连接而引起的数据库连接遗漏
+- 好处：
+  - 资源重用
+  - 提高系统相应速度
+  - 避免数据库的连接遗漏 （长时间没有连接，就会直接收回）
+- 
 
 # 注意事项
 
