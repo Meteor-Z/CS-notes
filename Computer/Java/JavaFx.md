@@ -52,5 +52,11 @@ private void deleteButtonClicked()
 }
 ```
 
+# 菜单栏
 
+`MenuBar`：就是菜单栏
+
+`Menu`：可以有列表，就是子列表
+
+`MenuItem`:这才是一个小小的按钮
 
