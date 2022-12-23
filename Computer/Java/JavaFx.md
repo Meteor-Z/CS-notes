@@ -10,7 +10,7 @@
 
 # TreeView
 
-`TreeView`里面的东西叫做`TreeItem`，然后设置下属节点的话就是`getChildren().add()`这样加入到`TreeView`里面
+` 找不到模块: javafx.controlsTreeView`里面的东西叫做`TreeItem`，然后设置下属节点的话就是`getChildren().add()`这样加入到`TreeView`里面
 
 `看选择的是哪一个东西我们可以直接加监控器`
 
@@ -54,7 +54,7 @@ private void deleteButtonClicked()
 
 # 菜单栏
 
-`MenuBar`：就是菜单栏
+`MenuBar`：就是菜单栏 找不到模块: javafx.controls
 
 `Menu`：可以有列表，就是子列表
 
