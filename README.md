@@ -1,2 +1,1 @@
-# University-Study
-university-study about metoer_z
+整理一些关于学习上的一些东西
