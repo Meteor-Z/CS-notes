@@ -11,7 +11,6 @@ add_executable(main.out main.cpp a.cpp) # 由 main.cpp 和 a.cpp 生成呢个一
 
 target_link_libraries(main.out hello_lib) # 将生成的 main.out 和这个静态库进行链接
 
-
 ```
 
 如果是添加一个动态库，那么如果将那个生成的`.so`文件删除掉，那么那个代码就执行不下去了，跟 windows 上缺少
