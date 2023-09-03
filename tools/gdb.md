@@ -1,14 +1,5 @@
 # GDB调试
 
-type: Post
-status: Published
-date: 2023/08/09
-summary: 关于GDB调试的信息
-tags: C++
-category: C++
-
-# GDB调试
-
 主要的参考文献是
 
 ## 基本指令

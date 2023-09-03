@@ -10,6 +10,9 @@ add_library(hello_lib STATIC b.cpp) # 生成一个静态库，然后这个静态
 add_executable(main.out main.cpp a.cpp) # 由 main.cpp 和 a.cpp 生成呢个一个main.out文件
 
 target_link_libraries(main.out hello_lib) # 将生成的 main.out 和这个静态库进行链接
+target_link_libraries(tiny_rpc "/usr/local/lib/libfmt.a") # 也可以这样直接链接 libfmt.a
+
+set(CMAKE_CXX_FLAGS "-g") # 可以添加cpp编译选项 这里好像是不可以添加链接的
 
 ```
 
