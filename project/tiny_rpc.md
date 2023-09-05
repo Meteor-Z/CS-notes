@@ -86,8 +86,7 @@ target_link_libraries(test_c++ "/usr/local/lib/libfmt.a")
     // std::lock_guard<std::mutex> guard { mtx }; 应加上这句代码
     while (!m_buffer.empty()) 
         {
-            std::string message = m_buffer.front();
-            std::cout << message << std::endl;
+            std::cout << m_buffer.front() << std::endl;
             m_buffer.pop();
         }
 ```
