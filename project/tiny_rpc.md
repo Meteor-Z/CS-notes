@@ -76,3 +76,21 @@ target_link_libraries(test_c++ "/usr/local/lib/libfmt.a")
 ### 日志器
 
 1. 提供输出日志的方法
+
+
+## 遇到的问题
+
+### 队列未锁导致多次 pop
+
+```c++
+    // std::lock_guard<std::mutex> guard { mtx }; 应加上这句代码
+    while (!m_buffer.empty()) 
+        {
+            std::string message = m_buffer.front();
+            std::cout << message << std::endl;
+            m_buffer.pop();
+        }
+```
+
+原本这样的代码如果多个线程同时同时争抢这个资源的话,就会发生多次pop导致段错误.使用`valgrind --tool=memcheck --leak-check=full  ./a.out`诊断出来的问题
+    
