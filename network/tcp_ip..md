@@ -1,10 +1,48 @@
 # TCP_IP
 
 所有代码基本上都是在`Arch Linux`上运行，并且使用的版本是`gcc 13.1`最新版本。
+现在主要是在wsl中进行开发
+
+`linux`平台上和`windows`平台上，没有进行统一,`std::net`在`C++26` 或者`C++29` 才会加入到标准库里面，我哭死。
+
+文件句柄/描述符：是为了称呼操作系统所创建的文件或者套接字罢了。
+
+不过`c++` 在文件上还会做到了统一，不需要进行底层处理。
+
+## 套接字类型和协议设置
+
+一般采用`IPV4`这个协议。当然还有`IPV6`，不过还是建议用`IPV4`这个协议吧 （4字节协议），IPV6(16字节协议)
+
+对于`UDP`或者`TCP`，网络现在很好，基本上都使用`TCP`.
+
+## 地址与数据序列
+
+不是很懂网络地址分类，这个A类，B类，C类，
+
+端口号区别应用程序，一般是`0~65536`,`0~1023`是分配到知名应用端口，有特定的用处，`TCP`和`UDP`可以公用一个端口号。
+
+`struct sockaddr_in`就是保存这些信息的，（IP地址+端口号）
+
+### 网络字节序与地址变换
+
+在`csapp`上可以知道，对于一个32位的整数来说，一个数字1 可以有两种表示方法，大端法和小端法。
+咱们用的就是大端法。 网络序列-> 大端序
+
+```in
+00000000 00000000 00000000 00000001
+00000001 00000000 00000000 00000000
+```
 
 ## 客户端和服务端
 
-对于服务端 编译命令 `g++ server.cpp -o server -std=c++23`
+对于服务端
+编译命令
+
+```shell
+g++ server.cpp -o server -std=c++23
+
+```
+
 ```c++
 #include <cstring>
 #include <iostream>
@@ -94,21 +132,22 @@ void err_handing(const std::string& message)
 int main(int argc, char* argv[]) 
 {
     // c++ style 风格
-    int sock = {0};
-    sockaddr_in server_addr = {0};
-    int str_len = {0};
-    char message[30] = {0};
+    int sock { 0 };
+    sockaddr_in server_addr { 0 };
+    int str_len { 0 };
+    char message[30] { 0 };
     if (argc != 3)
     {
         std::cout << std::format("Usage : {} <IP>  <port>\n", argv[0]);
         exit(1);
     }
-    sock = socket(PF_INET, SOCK_STREAM, 0);
+    sock = socket(PF_INET, SOCK_STREAM, 0); // 创建一个TCP socket
     if (sock == -1)   
     {
         err_handing("socket_ error");
     }
     
+    // 对于server_addr 都是初始化ip和端口信息的 就是你要给谁放松
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = inet_addr(argv[1]);
     server_addr.sin_port = htons(atoi(argv[2]));
@@ -117,7 +156,7 @@ int main(int argc, char* argv[])
     {
         err_handing("connect() error");
     }
-    str_len = read(sock, message, sizeof(message) -1 );
+    str_len = read(sock, message, sizeof(message) -1 ); // 从哪里开始发送
 
     if (str_len == -1) 
     {
@@ -125,43 +164,10 @@ int main(int argc, char* argv[])
     }
     std::cout << message << std::endl;
     std::cout << std::format("Message, from server {} \n", message) << std::endl;
-    close(sock);
+    close(sock); // 一定要close哦~
     return 0;
     
 } 
-```
-
-
-`linux`平台上和`windows`平台上，没有进行统一,`std::net`在`C++26` 或者`C++29` 才会加入到标准库里面，我哭死。
-
-文件句柄/描述符：是为了称呼操作系统所创建的文件或者套接字罢了。
-
-不过`c++` 在文件上还会做到了统一，不需要进行底层处理。
-
-## 套接字类型和协议设置
-
-一般采用`IPV4`这个协议。当然还有`IPV6`，不过还是建议用`IPV4`这个协议吧 （4字节协议），IPV6(16字节协议)
-
-对于`UDP`或者`TCP`，网络现在很好，基本上都使用`TCP`.
-
-
-## 地址与数据序列
-
-不是很懂网络地址分类，这个A类，B类，C类，
-
-端口号区别应用程序，一般是`0~65536`,`0~1023`是分配到知名应用端口，有特定的用处，`TCP`和`UDP`可以公用一个端口号。
-
-
-`struct sockaddr_in`就是保存这些信息的，（IP地址+端口号）
-
-### 网络字节序与地址变换
-
-在`csapp`上可以知道，对于一个32位的整数来说，一个数字1 可以有两种表示方法，大端法和小端法。
-咱们用的就是大端法。 网络序列-> 大端序
-
-```in
-00000000 00000000 00000000 00000001
-00000001 00000000 00000000 00000000
 ```
 
 ```c++
@@ -182,4 +188,12 @@ int main()
 }
 ```
 
-会发生转化，在一些机子上不会发生改变。
+会发生转化，在一些机子上不会发生改变
+
+## 服务端/客户端 请求顺序
+
+1. TCP客户端 : socket() -> connect() -> read()/write() -> close()
+2. TCP服务端 : socket() -> bind() -> listen() -> accept() -> read()/write() -> close()
+
+具体图片是这样的
+![服务端和客户端之间进行交互](https://x.imgs.ovh/x/2023/09/06/64f85640d4b9d.png)
