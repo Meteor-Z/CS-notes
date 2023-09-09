@@ -36,6 +36,11 @@ epoll_ctl(A, EPOLL_CTL_DEL, B, nullptr); // 在 A 中删除 B
 int epoll_wait(int efpd, struct epoll_event* events, int maxevents, int timeout);
 // epf是epoll文件描述符， events是保存文件描述符结构体地址值， maxevents是保存的最大事件数， 后面是截止时间
 
+// eventfd 是一个专门传递事件的fd
+int eventfd(unsigned int initval, int flags);
+// 用到了 EFD_NONBLOCKS  这个flags 表示非堵塞状态 返回的是一个事件 计数相关的fd 等待通知相关机制
+// 对应的是一个八字节的数字。是read/write操作维护的计数 write的时候计数，read读取并且清零 ?
+
 
 
 
