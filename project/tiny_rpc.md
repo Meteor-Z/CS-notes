@@ -81,7 +81,35 @@ target_link_libraries(test_c++ "/usr/local/lib/libfmt.a")
 
 1. 提供输出日志的方法
 
-### EventLoop
+## EventLoop
+
+事件循环队列
+
+## 定时器
+
+对于一个调用，那么如果没有完成，还要处理其他的任务
+
+1. 指定的时间点 arrive_time (其实就是一个时间戳)
+2. interval, ms 间隔
+3. is_repeated 是否是一个重复性的任务
+4. is_cancel : 取消
+5. task
+
+### 方法
+
+`cancel()`
+`cancel_repeated()`
+
+## Timer
+
+定时器: 是一个TimerEvent的集合
+Timer继承自FdEvent
+
+```c++
+add_time_event(); 
+delete_time_event();
+on_time() // 当发任务的时候，要转型的方法
+```
 
 ## 遇到的问题
 
