@@ -8,7 +8,7 @@
 
 - 每一个请求创建一个线程
 - 线程池 堵塞IO
-- non-blocking op + ip mult
+- non-blocking op + io多路复用
 - Leader/Follower （生产者/消费者）
   - 有若干个线程(一般组成线程池)用来处理大量的事件
   - 有一个线程作为领导者，等待事件的发生；其他的线程作为追随者，仅仅是睡眠。
