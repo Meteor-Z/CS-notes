@@ -133,4 +133,3 @@ IO线程能帮助我们干什么
 ```
 
 原本这样的代码如果多个线程同时同时争抢这个资源的话,就会发生多次pop导致段错误.使用`valgrind --tool=memcheck --leak-check=full  ./a.out`诊断出来的问题
-
