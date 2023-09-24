@@ -52,7 +52,7 @@ private:
     std::mutex m_mtx;
 };
 
-// 智能指针需要一个完全相同的接口,这时候我们可以两次封装一个类,如果用虚函数的
+// 智能指针需要一个完全相同的接口,这时候我们可以两次封装一个类,所以这里采用虚函数的调用方法
 class Task
 {
 public:
@@ -110,8 +110,8 @@ public:
     template<typename Func, typename Ret = std::invoke_result_t<Func>>
     auto submit(Func func) -> std::future<Ret>
     {
-        std::packaged_task<Ret()> pt { std::move(func) };
-        auto ret = pt.get_future();
+        std::packaged_task<Ret()> pt { std::move(func) }; // 以便稍后进行调用
+        auto ret = pt.get_future(); // 得到未来的期望
         Task task { std::move(pt)} ;
 
             {
@@ -121,7 +121,7 @@ public:
                 assert(m_safe_queue.size() < m_safe_queue_size || !m_is_running);
                 if (!m_is_running) return {};
                 m_safe_queue.push(std::move(task));
-                m_is_not_empty.notify_one(); // 弄一个线程去处理他
+                m_is_not_empty.notify_one(); // 唤醒一个线程去处理他
                 
             }
         return ret;
@@ -143,7 +143,8 @@ private:
     {
         std::lock_guard<std::mutex> lock_guard { m_mtx };
         m_is_running = false;
-        m_is_not_full.notify_all();
+        // 唤醒所有的线程将任务处理完成
+        m_is_not_full.notify_all();  
         m_is_not_empty.notify_all();
     }
 
@@ -197,7 +198,7 @@ int main()
     for (auto &item : rets)
     {
         item.wait();
-        std::cout << item.get() << std::endl;
+        std::cout << item.get() << std::endl; // 如果那个线程没有完全执行完毕，那么这里就会阻塞当前的IO
     }
     std::cout << "yes" << std::endl;
 }
