@@ -44,3 +44,13 @@ int main()
     std::thread t1(&Node::do_something, temp); // yes
 }
 ```
+
+## 防止死锁
+
+1. 避免嵌套锁，
+   1. 尤其是那种一个类中使用多少个函数，如果多个函数共同要抢夺一把锁，那么要避免嵌套。
+2. 持有锁之后，避免调用由用户提供的程序接口
+3. 固定顺序获取锁
+   1. 选择`std::scoped_lock<std::mutex, std::mutex> lock { m1, m2 }`,scooped_lock来同时获取锁
+   2. 按照地址的高低来获取锁，避免一个抢A，一个抢B
+   3.
