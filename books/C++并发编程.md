@@ -41,6 +41,7 @@ public:
 
 int main()
 {
+    // 相当于传入一个参数，这个参数是函数的自己，我学过哦~，还是看过深入探索c++对象模型的
     std::thread t1(&Node::do_something, temp); // yes
 }
 ```

@@ -101,8 +101,9 @@ public:
         int n = m_threads.capacity();
 
         while (n--)
-        {
-            m_threads.emplace_back(&ThreadPool::worker,this);
+        {   
+            // 这里就是线程池的第二种创建方法，第一个是函数，第二个是这个函数的第一个参数，参考 《深入探索c++对象模型》
+            m_threads.emplace_back(&ThreadPool::worker,this); 
         }
     }
     
@@ -160,7 +161,7 @@ private:
                 
                 if (!m_is_running) return; // 逆天
                 t = std::move(m_safe_queue.front());
-                
+        
                 m_safe_queue.pop();
                 m_is_not_full.notify_one();
             }
