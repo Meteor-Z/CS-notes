@@ -19,7 +19,7 @@ class SafeQueue
 {
 public:
     SafeQueue() = default;
-
+    SafeQueue& operator =(const SafeQueue& rhs) = delete; // 赋值运算符删除
     size_t size() 
     { 
         std::lock_guard<std::mutex> guard { m_mtx };
@@ -87,7 +87,7 @@ class ThreadPool
 {
 public:
     ThreadPool(size_t thread_size, size_t queue_size) 
-        : m_is_running { false }, m_safe_queue_size { queue_size }
+        : m_safe_queue_size { queue_size }, m_is_running { false }
     {
         m_threads.reserve(thread_size);
     }
