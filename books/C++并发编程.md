@@ -45,3 +45,5 @@ int main()
     std::thread t1(&Node::do_something, temp); // yes
 }
 ```
+
+test
