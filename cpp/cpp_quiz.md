@@ -183,8 +183,25 @@
 ## 31
 
 ```c++
+#include <iostream>
 
+struct X {
+  X() { std::cout << "X"; }
+};
+
+struct Y {
+  Y(const X &x) { std::cout << "Y"; }
+  void f() { std::cout << "f"; }
+};
+
+int main() {
+  Y y(X()); // one
+  y.f();
+}
 ```
+
+答案 CE
+因为one这里其实是声明一个函数。。。而不是一个一个变量。。所以还是优先使用花括号初始化吧，但是
 
 ## 32
 
@@ -775,14 +792,34 @@ int main() {
 ## 128
 
 ```c++
+#include <iostream>
 
+volatile int a;
+
+int main() {
+  std::cout << (a + a);
+}
 ```
+
+答案 UB
+没看懂
 
 ## 129
 
 ```c++
+#include <vector>
+#include <iostream>
 
+using namespace std;
+
+int main() {
+  vector<char> delimiters = { ",", ";" };  
+  cout << delimiters[0];
+}
 ```
+
+答案 UB
+没看懂，我的电脑直接报错了，不清楚这里咋了，但是显示的是`fist last`。。。
 
 ## 130
 
@@ -1049,6 +1086,7 @@ int main () {
 
 答案 B2
 根据标准，默认实现并不会进行使用，使用父类的，如果传入了，那么肯定用传入的参数。
+
 ## 161
 
 ```c++
@@ -1655,7 +1693,37 @@ int main() {
 ## 254
 
 ```c++
+#include <iostream>
+#include <type_traits>
 
+int main() {
+    std::cout << std::is_same_v<
+        void(int),
+        void(const int)>;
+
+    std::cout << std::is_same_v<
+        void(int*),
+        void(const int*)>;
+}
+```
+
+答案 10
+`参数的常量不是函数类型的一部分`，`const int` 和 `int`是同一种类型，但是`int*` 和 `const int*`并不是一类型，因为这里的const修饰的不是指针，而是指针所指向的东西.
+为什么参数的常量不是函数类型的一部分，当参数按值传递的时候，会生成一个副本，并且原始参数永远不会不会修改，参数对于const调用者来说并不重要，它只是对函数内部相关。
+
+```c++
+#include <iostream>
+#include <type_traits>
+
+int main() 
+{ 
+    std::cout << std::is_same_v<void(int), void(const int)> << std::endl; // 1
+    std::cout << std::is_same_v<int, int> << std::endl; // 1
+    std::cout << std::is_same_v<int, const int> << std::endl; // 0
+    std::cout << std::is_same_v<int*, const int*> << std::endl; // 0
+    std::cout << std::is_same_v<int*, int* const> << std::endl; // 0
+    return 0;w
+}
 ```
 
 ## 255
@@ -3148,5 +3216,3 @@ int main() {
 ```c++
 
 ```
-
-
