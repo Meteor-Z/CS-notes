@@ -9,8 +9,22 @@
 ## 2
 
 ```c++
+#include <iostream>
+#include <string>
 
+void f(const std::string &) { std::cout << 1; } // one
+
+void f(const void *) { std::cout << 2; } // two
+
+int main() {
+  f("foo");
+  const char *bar = "bar";
+  f(bar);
+}
 ```
+
+答案 22
+字符串常量注定不是std::string，因为要进行转换，但是const void* 不需要进行转换，所以这里优先选择第二个，两个都是优先选择第二个
 
 ## 3
 
@@ -660,8 +674,21 @@ int main() {
 ## 106
 
 ```c++
+#include <iostream>
 
+extern "C" int x; // one
+extern "C" { int y; } // two
+
+int main() {
+
+	std::cout << x << y;
+
+	return 0;
+}
 ```
+
+答案 UB
+这里 one 只是一个声明，也就是说没有链接，two这里是一个定义，所以这里没有这个x的链接，虽然答案是UB，但是我觉得答案就是CE
 
 ## 107
 
@@ -1058,8 +1085,22 @@ assert(std::type_index(ti1) == std::type_index(ti2)); // 保证
 ## 159
 
 ```c++
+#include <iostream>
 
+int i;
+
+void f(int x) {
+    std::cout << x << i;
+}
+
+int main() {
+    i = 3;
+    f(i++);
+}
 ```
+
+答案 34
+i++和++i的区别，先将3传入，然后i就会变成4了，答案就是34
 
 ## 160
 
@@ -1308,8 +1349,17 @@ int main() {
 ## 195
 
 ```c++
+#include <iostream>
+#include <cstddef>
+#include <type_traits>
 
+int main() {
+  std::cout << std::is_pointer_v<decltype(nullptr)>;
+}
 ```
+
+答案 0
+std::nullptr_t 是空指针字面量 nullptr 的类型。 它是既非指针类型亦非指向成员指针类型的独立类型，啥也不是
 
 ## 196
 
@@ -1395,8 +1445,16 @@ int main() {
 ## 206
 
 ```c++
+#include <iostream>
 
+int main() {
+   int n = sizeof(0)["abcdefghij"]; 
+   std::cout << n;   
+}
 ```
+
+答案 1
+有点像 `std::cout << '\n'[i==n]`这样子，
 
 ## 207
 
@@ -1921,8 +1979,20 @@ int main()
 ## 287
 
 ```c++
+#include <string>
+#include <iostream>
 
+int main() {
+  using namespace std::string_literals;
+  std::string s1("hello world",5); 
+  std::string s2("hello world"s,5); 
+
+  std::cout << s1 << s2;
+}
 ```
+
+答案 hello world
+好坑，这里是表示的是直接使用std::string()来初始化，前面的从0开始，保留前五个，后面的5是
 
 ## 288
 
