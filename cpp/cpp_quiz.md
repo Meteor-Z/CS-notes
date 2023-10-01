@@ -747,8 +747,27 @@ int main() {
 ## 116
 
 ```c++
+#include <iostream>
+#include <utility>
 
+int y(int &) { return 1; }
+int y(int &&) { return 2; }
+
+template <class T> int f(T &&x) { return y(x); }
+template <class T> int g(T &&x) { return y(std::move(x)); }
+template <class T> int h(T &&x) { return y(std::forward<T>(x)); }
+
+int main() {
+  int i = 10;
+  std::cout << f(i) << f(20);
+  std::cout << g(i) << g(20);
+  std::cout << h(i) << h(20);
+  return 0;
+}
 ```
+
+答案 112212
+太简单了，了解一下相关的知识点就知道了
 
 ## 117
 
@@ -1275,8 +1294,22 @@ int main () {
 ## 185
 
 ```c++
+#include <iostream>
 
+template <typename T> void f() {
+  static int stat = 0;
+  std::cout << stat++;
+}
+
+int main() {
+  f<int>();
+  f<int>();
+  f<const int>();
+}
 ```
+
+答案 010
+根据模板`f(const int )`和`f(int)`是不一样的函数，所以这里其实会生成两个两个函数，那么static相当于在这个两个函数中都有一份，所以是010
 
 ## 186
 
@@ -1391,8 +1424,19 @@ int main() {
 ## 197
 
 ```c++
+#include <iostream>
 
+int j = 1;
+
+int main() {
+  int& i = j, j;
+  j = 2;
+  std::cout << i << j;
+}
 ```
+
+答案 12
+这里其实是`int& i = j; int j;`。。。 所以答案显然易见。就是12（第二个修改的是局部变量）
 
 ## 198
 
@@ -1625,8 +1669,26 @@ int main() {
 ## 233
 
 ```c++
+#include <type_traits>
+#include <iostream>
 
+using namespace std;
+
+struct X {
+    int f() const&&{
+        return 0;
+    }
+};
+
+int main() {
+    auto ptr = &X::f;
+    cout << is_same_v<decltype(ptr), int()>
+         << is_same_v<decltype(ptr), int(X::*)()>;
+}
 ```
+
+答案 00
+返回类型、参数类型列表、引用限定符、cv 限定符序列和异常规范（但不是默认参数）是函数类型的一部分。
 
 ## 234
 
@@ -2312,8 +2374,25 @@ int main() {
 ## 338
 
 ```c++
+#include <type_traits>
+#include <iostream>
+#include <string>
 
+template<typename T>
+int f()
+{
+    if constexpr (std::is_same_v<T, int>) { return 0; }
+    else { return std::string{}; }
+}
+
+int main()
+{
+    std::cout << f<int>();
+}
 ```
+
+答案 UB（我更觉得是编译错误）
+如果说你改成auto 就能编译过，其实就是`constexpr if`语法。
 
 ## 339
 
@@ -2366,8 +2445,39 @@ int main() {
 ## 347
 
 ```c++
+#include <iostream>
+#include <type_traits>
+#include <boost/type_index.hpp>
 
+template <typename T>
+void foo(T& x)
+{
+    std::cout << std::is_same_v<const int, T> << ' ';
+    std::cout << boost::typeindex::type_id_with_cvr<T>().pretty_name() << std::endl;
+}
+
+template <typename T>
+void bar(const T& x)
+{
+    std::cout << std::is_same_v<const int, T> << ' ';
+    std::cout << boost::typeindex::type_id_with_cvr<T>().pretty_name() << std::endl;
+}
+
+int main()
+{
+    const int i{};
+    int j{};
+
+    foo(i); // const int
+    foo(j); // int 
+    bar(i); // int
+    bar(j); // int
+
+}
 ```
+
+答案 1000
+boost库是我加入的，这里得看一下C++类型的类型推导，`typename T` 和 `T& const T&` 这里推导出来的东西可能是不一样的。
 
 ## 348
 
@@ -2408,8 +2518,25 @@ int main() {
 ## 354
 
 ```c++
+#include <cstdlib>
+#include <iostream>
 
+struct S {
+    char s;
+    S(char s): s{s} {}
+    ~S() { std::cout << s; }
+};
+
+S a('a');
+
+int main() {
+    S b('b');
+    std::exit(0);
+}
 ```
+
+答案 a
+调用的时候，只会执行静态局部变量的函数，其他不执行，无意义，没啥用
 
 ## 355
 
