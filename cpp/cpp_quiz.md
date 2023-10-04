@@ -697,7 +697,21 @@ int main() {
 ```
 
 ## 108
+#include <algorithm>
+#include <iostream>
 
+int main() {
+    int x = 10;
+    int y = 10;
+
+    const int &max = std::max(x, y);
+    const int &min = std::min(x, y);
+
+    x = 11;
+    y = 9;
+
+    std::cout << max << min;
+}
 ```c++
 
 ```
@@ -778,8 +792,20 @@ int main() {
 ## 118
 
 ```c++
+#include <iostream>
 
+void print(char const *str) { std::cout << str; }
+void print(short num) { std::cout << num; }
+
+int main() {
+  print("abc");
+  print(0); // one
+  print('A');
+}
 ```
+
+答案 CE
+one 这里的 0 都可以调用，但是根据重载决议，这里都可以进行传唤，但是没有一个更好，导致摸棱两可，所以这里直接CE
 
 ## 119
 
@@ -1441,8 +1467,37 @@ int main() {
 ## 198
 
 ```c++
+#include <iostream>
 
+namespace A {
+  extern "C" { int x; }
+};
+
+namespace B {
+  extern "C" { int x; }
+};
+
+int A::x = 0;
+
+int main() {
+  std::cout << B::x;
+  A::x=1;
+  std::cout << B::x;
+}
 ```
+
+答案 CE
+出现在不同命名空间作用域中的具有相同名称（忽略限定它的命名空间名称）的 C 语言链接变量的两个声明引用同一变量。
+这里两个都是定义，定义两个相同的名字是错误的，CE
+注意下面的用法
+
+```c++
+extern "C" int i;                   // declaration 声明
+extern "C" {
+  int i;                            // definition // 定义
+}
+```
+
 
 ## 199
 
@@ -1777,8 +1832,25 @@ int main() {
 ## 248
 
 ```c++
+#include <algorithm>
+#include <iostream>
 
+int main() {
+    int x = 10;
+    int y = 10;
+
+    const int &max = std::max(x, y);
+    const int &min = std::min(x, y);
+
+    x = 11;
+    y = 9;
+
+    std::cout << max << min;
+}
 ```
+
+答案 1111
+`std::max() 和 std::min()`返回的都是一个引用，但是如果都是相同的话，那么返回的是第一个参数，那么答案就是1111
 
 ## 249
 
