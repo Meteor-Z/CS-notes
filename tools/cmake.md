@@ -82,7 +82,7 @@ target_link_libraries(io_thread_test
     io_thread_libs
     ${TINYXML}
     ${LIBFMT}
-    
+    ou 
 )
 
 add_test(NAME test COMMAND io_thread_test)

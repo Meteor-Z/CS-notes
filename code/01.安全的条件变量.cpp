@@ -10,10 +10,10 @@ int need;
 int count = 0;
 std::condition_variable cv;
 std::mutex mtx;
-void print_left()
-{
-    while (true)
-    {
+
+void print_left() {
+
+    while (true) {
         std::unique_lock<std::mutex> lock { mtx };
         // while (!(count != need)) cv.wait(lock); 与下面的是等价的
         while (count == need) cv.wait(lock); // 如果满足了这个条件，那么就必须要进行wait，
@@ -22,11 +22,10 @@ void print_left()
         count++;
         cv.notify_all();
     }
+
 }
-void print_right()
-{
-    while (true)
-    {
+void print_right() {
+    while (true) {
         std::unique_lock<std::mutex> lock { mtx };
         // while(!(count != 0)) cv.wait(lock); 与下面是等价的
         while (count == 0) cv.wait(lock); // 满足和这个条件，就必须要wait
@@ -36,8 +35,7 @@ void print_right()
         cv.notify_all();
     }
 }
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     need = std::stoi(argv[1]);
     // need = 1;
     std::vector<std::thread> vec_thread;
