@@ -6,8 +6,8 @@
 #include <vector>
 #include <cassert>
 
-int need;
-int count = 0;
+int need { 0 };
+int count = { 0 };
 std::condition_variable cv;
 std::mutex mtx;
 
@@ -39,8 +39,7 @@ int main(int argc, char* argv[]) {
     need = std::stoi(argv[1]);
     // need = 1;
     std::vector<std::thread> vec_thread;
-    for (int i = 0; i < 100; i++)
-    {
+    for (int i = 0; i < 100; i++) {
        vec_thread.push_back(std::thread(print_left));
        vec_thread.push_back(std::thread(print_right));
     }
