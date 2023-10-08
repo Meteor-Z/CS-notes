@@ -87,8 +87,7 @@ public:
         m_is_running = true;
         int n = m_threads.capacity();
 
-        while (n--)
-        {   
+        while (n--) {   
             // 这里就是线程池的第二种创建方法，第一个是函数，第二个是这个函数的第一个参数，参考 《深入探索c++对象模型》
             m_threads.emplace_back(&ThreadPool::worker,this); 
         }

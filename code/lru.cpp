@@ -5,8 +5,7 @@ class Node
 public:
     Node() = default;
     Node(int key, int val) : key(key),  val(val) { }
-    ~Node()
-    {
+    ~Node() {
         int* a = new int(1);
         if (next) delete next;
         if (pre) delete pre;
@@ -35,8 +34,7 @@ public:
         move_to_head(ptr);
         return ptr->val;   
     }
-    void move_to_head(Node* ptr)
-    {
+    void move_to_head(Node* ptr) {
         // 先将这个指针的左右链接起来
         ptr->pre->next = ptr->next; 
         ptr->next->pre = ptr->pre;
@@ -48,8 +46,7 @@ public:
         head->next = ptr;
         
     }
-    void add_to_head(Node* ptr)
-    {
+    void add_to_head(Node* ptr) {
         ptr->pre = head;
         ptr->next = head->next;
 
@@ -57,14 +54,12 @@ public:
         head->next = ptr;
     }
     void put(int key, int value) {
-        if (!cache.count(key))
-        {
+        if (!cache.count(key)) {
             Node* ptr = new Node(key, value);
             cache.emplace(key, ptr);
             add_to_head(ptr);
             size++;
-            if (size > capacity)
-            {
+            if (size > capacity) {
                 Node* ptr = remove_tail();
                 cache.erase(ptr->key);
                 delete ptr;
@@ -77,15 +72,13 @@ public:
             move_to_head(ptr);
         }
     }
-    Node* remove_tail()
-    {
+    Node* remove_tail() {
         Node* cur_ptr = tail->pre;
         cur_ptr->pre->next = tail;
         tail->pre = cur_ptr->pre;
         return cur_ptr;
     }
-    ~LRUCache()
-    {
+    ~LRUCache() {
         if (head) delete head;
         if (tail) delete tail;
         for (auto& item: cache)
