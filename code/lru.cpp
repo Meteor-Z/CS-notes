@@ -18,14 +18,16 @@ public:
 };
 class LRUCache {
 public:
-    LRUCache(int capacity) : capacity(capacity) {
+    LRUCache(int capacity) : capacity(capacity) 
+    {
         head = new Node();
         tail = new Node();
         head->next = tail;
         tail->pre = head;
     } 
     
-    int get(int key) {
+    int get(int key) 
+    {
         if (!cache.count(key))
         {
             return -1;
@@ -34,7 +36,8 @@ public:
         move_to_head(ptr);
         return ptr->val;   
     }
-    void move_to_head(Node* ptr) {
+    void move_to_head(Node* ptr) 
+    {
         // 先将这个指针的左右链接起来
         ptr->pre->next = ptr->next; 
         ptr->next->pre = ptr->pre;
@@ -46,20 +49,24 @@ public:
         head->next = ptr;
         
     }
-    void add_to_head(Node* ptr) {
+    void add_to_head(Node* ptr) 
+    {
         ptr->pre = head;
         ptr->next = head->next;
 
         head->next->pre = ptr;
         head->next = ptr;
     }
-    void put(int key, int value) {
-        if (!cache.count(key)) {
+    void put(int key, int value) 
+    {
+        if (!cache.count(key)) 
+        {
             Node* ptr = new Node(key, value);
             cache.emplace(key, ptr);
             add_to_head(ptr);
             size++;
-            if (size > capacity) {
+            if (size > capacity)
+            {
                 Node* ptr = remove_tail();
                 cache.erase(ptr->key);
                 delete ptr;
@@ -72,13 +79,15 @@ public:
             move_to_head(ptr);
         }
     }
-    Node* remove_tail() {
+    Node* remove_tail() 
+    {
         Node* cur_ptr = tail->pre;
         cur_ptr->pre->next = tail;
         tail->pre = cur_ptr->pre;
         return cur_ptr;
     }
-    ~LRUCache() {
+    ~LRUCache() 
+    {
         if (head) delete head;
         if (tail) delete tail;
         for (auto& item: cache)

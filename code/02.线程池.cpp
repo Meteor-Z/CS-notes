@@ -15,39 +15,49 @@
 #include <future>
 
 template <typename T>
-class SafeQueue {
+class SafeQueue 
+{
 public:
     SafeQueue() = default;
     SafeQueue& operator =(const SafeQueue& rhs) = delete; // 赋值运算符删除
-    size_t size() { 
+    size_t size() 
+    { 
         std::lock_guard<std::mutex> guard { m_mtx };
         return m_queue.size(); 
     }
     
-    void push(T&& val) {
+    void push(T&& val) 
+    {
         std::lock_guard<std::mutex> guard { m_mtx };
         m_queue.emplace(std::forward<T>(val));    
     }
-    bool empty() {
+
+    bool empty() 
+    {
         std::lock_guard<std::mutex> guard { m_mtx }; 
         return m_queue.empty(); 
     }
-    void pop() {
+
+    void pop() 
+    {
         std::lock_guard<std::mutex> guard { m_mtx };
         m_queue.pop();
     }
     
-    T& front() {
+    T& front() 
+    {
         std::lock_guard<std::mutex> guard { m_mtx };
         return m_queue.front();
     }
+
 private:
     std::queue<T> m_queue;
     std::mutex m_mtx;
 };
 
 // 智能指针需要一个完全相同的接口,这时候我们可以两次封装一个类,所以这里采用虚函数的调用方法
-class Task {
+class Task 
+{
 public:
     Task() = default;
 
@@ -55,14 +65,16 @@ public:
 	explicit Task(Func&& f) : m_ptr { std::make_unique<Wrapper<Func>>(std::move(f)) } { }
     void operator() () { m_ptr->call(); }
 private:
-    class Wrapper_Base {
+    class Wrapper_Base 
+    {
     public:
         virtual void call() = 0;
         virtual ~Wrapper_Base() = default;
     };
 
     template<typename Func>
-    class Wrapper: public Wrapper_Base {
+    class Wrapper: public Wrapper_Base
+    {
     public:
         explicit Wrapper(Func&& f) : m_func{ std::move(f) } {}
         virtual void call() override { m_func(); }
@@ -74,20 +86,25 @@ private:
     std::unique_ptr<Wrapper_Base> m_ptr;
 };
 
-class ThreadPool {
+class ThreadPool 
+{
 public:
-    ThreadPool(size_t thread_size, size_t queue_size) : m_safe_queue_size { queue_size }, m_is_running { false } {
+    ThreadPool(size_t thread_size, size_t queue_size) :
+    m_safe_queue_size { queue_size }, m_is_running { false } 
+    {
         m_threads.reserve(thread_size);
     }
 
     ~ThreadPool() { stop(); }
     
-    void init() {
+    void init() 
+    {
         if (m_is_running) return;
         m_is_running = true;
         int n = m_threads.capacity();
 
-        while (n--) {   
+        while (n--) 
+        {   
             // 这里就是线程池的第二种创建方法，第一个是函数，第二个是这个函数的第一个参数，参考 《深入探索c++对象模型》
             m_threads.emplace_back(&ThreadPool::worker,this); 
         }
@@ -95,7 +112,8 @@ public:
     
     // 提交函数
     template<typename Func, typename Ret = std::invoke_result_t<Func>>
-    auto submit(Func func) -> std::future<Ret> {
+    auto submit(Func func) -> std::future<Ret> 
+    {
         std::packaged_task<Ret()> pt { std::move(func) }; // 以便稍后进行调用
         auto ret = pt.get_future(); // 得到未来的期望
         Task task { std::move(pt)} ;
@@ -113,7 +131,8 @@ public:
         return ret;
 
     }
-    void stop() {
+    void stop() 
+    {
         if (!m_is_running) return;
         call_stop();
 
@@ -124,7 +143,8 @@ public:
     }
 private:
 
-    void call_stop() {
+    void call_stop() 
+    {
         std::lock_guard<std::mutex> lock_guard { m_mtx };
         m_is_running = false;
         // 唤醒所有的线程将任务处理完成
@@ -132,8 +152,10 @@ private:
         m_is_not_empty.notify_all();
     }
 
-    void worker() {
-        while (true) {
+    void worker() 
+    {
+        while (true) 
+        {
             Task t;
 
             {
@@ -163,21 +185,24 @@ private:
     bool m_is_running { false }; 
 
 };
-int main() {
+int main() 
+{
     ThreadPool pool{ 10, 3};
 	
     pool.init();
 
 	std::vector<std::future<long long>> rets;
     
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < 100; i++) 
+    {
 		auto ret = pool.submit([i] 
         { 
             return 1ll* i * i * i; 
         });
 		rets.push_back(std::move(ret));
 	}
-    for (auto &item : rets) {
+    for (auto &item : rets) 
+    {
         item.wait();
         std::cout << item.get() << std::endl; // 如果那个线程没有完全执行完毕，那么这里就会阻塞当前的IO
     }
