@@ -4,67 +4,79 @@
 #include <type_traits>
 #include <utility>
 
-namespace my_stl {
+namespace my_stl 
+{
     template <typename T>
     class vector {
     public:
         vector() noexcept = default;
-        explicit vector(size_t n): m_cap(n), m_ptr(alloc(m_cap)) {
+        explicit vector(size_t n): m_cap(n), m_ptr(alloc(m_cap))
+        {
             for (; m_len < n; ++m_len) {
                 construct(m_ptr + m_len);
             }
         }
-        vector(size_t n, const T& rhs): m_cap {m_ptr}, m_ptr{alloc(m_cap)} {
+        vector(size_t n, const T& rhs): m_cap {m_ptr}, m_ptr{alloc(m_cap)} 
+        {
             for(; m_len < n; ++m_len) {
                 construct(m_ptr + m_len, rhs);
             }
         }
-        vector(const vector& rhs): m_cap {rhs.m_cap}, m_ptr {alloc(m_cap)} {
+        vector(const vector& rhs): m_cap {rhs.m_cap}, m_ptr {alloc(m_cap)} 
+        {
             for (; m_len < m_cap; ++m_len)
             {
                 construct(m_ptr + m_len, rhs[m_len]);
             }
         }
-        vector(vector&& rhs) {
+        vector(vector&& rhs) 
+        {
             m_cap = std::exchange(rhs.m_cap, 0);
             m_len = std::exchange(rhs.m_len, 0);
             m_ptr = std::exchange(rhs.m_ptr, nullptr);
         }
-        vector(std::initializer_list<T> list): m_cap {list.size()}, m_ptr {alloc(m_cap)} {
+        vector(std::initializer_list<T> list): m_cap {list.size()}, m_ptr {alloc(m_cap)} 
+        {
             for (const auto& item: list)
             {
                 construct(m_ptr + m_len, item);
                 ++m_len;
             }
         }
-        ~vector() noexcept {
+        ~vector() noexcept 
+        {
             clear();
             dealloc(m_ptr);
         }
 
-        vector& operator =(const vector& rhs) {
+        vector& operator =(const vector& rhs) 
+        {
             if (this != &rhs) 
             {
                 vector {rhs}.swap(*this);
             }
             return *this;
         }
-        vector& operator =(vector&& rhs) noexcept {
+        vector& operator =(vector&& rhs) noexcept 
+        {
             if (this != &rhs)
             {
                 vector {std::move(rhs)}.swap(*this);
             }
             return *this;
         }
-        vector& operator =(std::initializer_list<T> list) {
+        vector& operator =(std::initializer_list<T> list) 
+        {
             vector {list}.swap(*this);
             return *this;
         }
         
-        void push_back(const T& val) {
+        void push_back(const T& val) 
+        {
             emplace_back(val);
         }
-        void push_back(T&& val) {
+        void push_back(T&& val) 
+        {
             // 参数永远是左值，所以这里还要进行转换
             emplace_back(std::move(val));
         }
@@ -88,6 +100,7 @@ namespace my_stl {
         
         void pop_back();
 
+
         size_t size() const noexcept { return m_len; }
 
         size_t capacity() const noexcept { return m_cap; }
@@ -106,7 +119,8 @@ namespace my_stl {
 
         const T* end() const noexcept { return m_ptr + m_len;}
 
-        void swap(vector& rhs) noexcept {
+        void swap(vector& rhs) noexcept 
+        {
             using std::swap; // 如果已经实现了重载函数，那么优先使用已经实现的。
             //与std::swap()这样有本质的区别！
             swap(m_cap, rhs.m_cap);
@@ -114,7 +128,8 @@ namespace my_stl {
             swap(m_ptr, rhs.m_ptr);
 
         }
-        void clear() noexcept {
+        void clear() noexcept 
+        {
             for (; m_len > 0; m_len --) 
             {
                 destory(m_ptr + m_len - 1);
