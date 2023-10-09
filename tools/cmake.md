@@ -91,4 +91,4 @@ add_test(NAME test COMMAND io_thread_test)
 ## 注意事项
 
 - 在链接的时候要格外注意一定要按照顺序进行连接，就是没有依赖的往前面链接，有依赖的往后面链接，否则就会寄了！！
-  - 这里如果一个程序依赖A库B库，同时A需要B，那么应该这样写target_link_libraries(project B A),当然也可以直接分开写。这样也可以的
+  - 这里如果一个程序依赖A库B库，同时A需要B，那么应该这样写`target_link_libraries(project B A)`,
