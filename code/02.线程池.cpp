@@ -32,20 +32,17 @@ public:
         m_queue.emplace(std::forward<T>(val));    
     }
 
-    bool empty() 
-    {
+    bool empty() {
         std::lock_guard<std::mutex> guard { m_mtx }; 
         return m_queue.empty(); 
     }
 
-    void pop() 
-    {
+    void pop() {
         std::lock_guard<std::mutex> guard { m_mtx };
         m_queue.pop();
     }
     
-    T& front() 
-    {
+    T& front() {
         std::lock_guard<std::mutex> guard { m_mtx };
         return m_queue.front();
     }
