@@ -681,13 +681,13 @@ extern "C" { int y; } // two
 
 int main() {
 
-	std::cout << x << y;
+  std::cout << x << y;
 
-	return 0;
+  return 0;
 }
 ```
 
-答案 UB
+答案 UB(更像CE)
 这里 one 只是一个声明，也就是说没有链接，two这里是一个定义，所以这里没有这个x的链接，虽然答案是UB，但是我觉得答案就是CE
 
 ## 107
@@ -697,6 +697,8 @@ int main() {
 ```
 
 ## 108
+
+```c++
 #include <algorithm>
 #include <iostream>
 
