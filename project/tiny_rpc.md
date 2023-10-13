@@ -156,3 +156,43 @@ target_link_libraries(io_thread_test PRIVATE ${LIBFMT})
 ```
 
 `越基础的库应该越放在后面`，具体的可以看操作系统中关于链接的定义。如果上面的因为链接的顺序颠倒，就直接寄了。。 
+
+### shared_from_this的问题
+
+构造的时候，乱用 shared_from_this()导致 导致寄寄寄。
+对于一下的代码就是错误的。
+
+```c++
+#include <memory>
+#include <iostream>
+
+class Node {
+public:
+    Node() { std::cout << "Widget constructor run" << std::endl; }
+    ~Node() { std::cout << "Widget destructor run" << std::endl; }
+    std::shared_ptr<Node> get_shared_object() { return std::shared_ptr<Node>(this); }
+};
+
+int main() {
+    std::shared_ptr<Node> a = std::make_shared<Node>();
+    std::shared_ptr<Node> b = a->get_shared_object();
+
+    std::cout << a.use_count() << std::endl;
+    std::cout << b.use_count() << std::endl;
+    return 0;
+}
+```
+
+上面的代码就是错误的代码，需要使用`std::shared_from_this()`。
+
+可以看出
+
+1. 智能共享指针不能够直接从this对象进行构造（这个太重要了）
+
+```c++
+int main() {
+        
+}
+```
+
+2. 只允许在shared_ptr所管理的对象上调用shared_from_this
