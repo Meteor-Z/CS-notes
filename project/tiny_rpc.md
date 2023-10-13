@@ -119,17 +119,40 @@ IO线程能帮助我们干什么
 2. 在新线程中创建一个EventLoop, 完成初始化
 3. 开启loop
 
+## TcpBuffer
+
+- 方便处理数据，特别是应用层的包组装而后拆解
+- 方便异步的发送（塞到缓冲区里面，等待epoll异步发送）
+- 提高发送效率，多个包一起发送
+
+读到一般的数据，将数据放到一个缓冲区里面，然后再读取。
+
 ## 遇到的问题
 
 ### 队列未锁导致多次 pop
 
 ```c++
     // std::lock_guard<std::mutex> guard { mtx }; 应加上这句代码
-    while (!m_buffer.empty()) 
-        {
+    while (!m_buffer.empty()) {
             std::cout << m_buffer.front() << std::endl;
             m_buffer.pop();
         }
 ```
 
 原本这样的代码如果多个线程同时同时争抢这个资源的话,就会发生多次pop导致段错误.使用`valgrind --tool=memcheck --leak-check=full  ./a.out`诊断出来的问题
+
+### 多次锁住同一把锁，导致锁死
+
+代码就是函数调用的时候，一层函数用了std::mutex，第二层函数也用std::mutex,直接就寄了。
+
+### cmake链接的时候因为链接顺序导致出错
+
+妈的，这错误太简单了，但是因为这个简单错误，导致找了最起码3小时错误。。
+
+```cmake
+target_link_libraries(io_thread_test PRIVATE io_thread_libs)
+target_link_libraries(io_thread_test PRIVATE ${TINYXML})
+target_link_libraries(io_thread_test PRIVATE ${LIBFMT})
+```
+
+`越基础的库应该越放在后面`，具体的可以看操作系统中关于链接的定义。如果上面的因为链接的顺序颠倒，就直接寄了。。 
