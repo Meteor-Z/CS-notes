@@ -188,11 +188,18 @@ int main() {
 可以看出
 
 1. 智能共享指针不能够直接从this对象进行构造（这个太重要了）
+2. 只允许在shared_ptr所管理的对象上调用shared_from_this()
 
 ```c++
+#include <memory>
+
+struct Node: public std::enable_shared_from_this<Node> { };
+
 int main() {
-        
+    std::shared_ptr<Node> a = std::make_shared<Node>();
+    std::shared_ptr<Node> b = a.share_+from_this();
+    return 0;
 }
 ```
 
-2. 只允许在shared_ptr所管理的对象上调用shared_from_this
+那我直接调用构造的有什么区别呢？
