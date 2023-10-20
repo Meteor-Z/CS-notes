@@ -3,5 +3,6 @@
         "epfd",
         "epoll",
         "struct"
-    ]
+    ],
+    "editor.fontFamily": "'JetBrains Mono'"
 }

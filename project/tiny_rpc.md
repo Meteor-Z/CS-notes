@@ -127,6 +127,26 @@ IO线程能帮助我们干什么
 
 读到一般的数据，将数据放到一个缓冲区里面，然后再读取。
 
+## TcpConnection
+
+read() -> excute() -> write() -> read() ->exute() -> write() ....
+
+read():读取客户端的请求,组装称rpc请求
+excute():将rpc请求入参数,执行业务逻辑得到rpc响应
+write():
+
+### InBuffer
+
+服务端调用read成功从socket缓冲区读数据,然后学入到InBuffer里面
+服务端从InBuffer前面读取数据,进行解码得到请求.
+
+### OutBuffer
+
+服务端向发送数据,会将数据编码之后放入到OutBuffer后面
+服务端在fd可用的情况下,调用write将OutBuffer里面的数据全部发送出去.
+
+上述的都是从Buffer上构建的.
+
 ## 遇到的问题
 
 ### 队列未锁导致多次 pop
@@ -203,3 +223,5 @@ int main() {
 ```
 
 那我直接调用构造的有什么区别呢？
+
+
