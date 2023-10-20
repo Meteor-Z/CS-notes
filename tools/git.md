@@ -4,4 +4,3 @@
 
 - commit 如何撤销commit : ![文章](https://cloud.tencent.com/developer/article/1997031)
   - `git commit -amend` 可以修改commit的注释
-
