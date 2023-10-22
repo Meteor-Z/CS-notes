@@ -27,3 +27,8 @@ stackcollapse-perf perf.unfold &> perf.folded
 # 生成svg图片
 flamegraph perf.folded > perf.svg
 ```
+
+alias 指令
+
+alias getflame="sudo perf script -i perf.data &> perf.unfold && stackcollapse-perf perf.unfold &> perf.folded && flamegraph perf.folded > perf.svg"
+
