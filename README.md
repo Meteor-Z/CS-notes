@@ -12,6 +12,9 @@
 
 ## 文章
 
+- [What every programmer should know about memory](https://zhuanlan.zhihu.com/p/611133924)（每一个程序员应该知道的内存知识）
+- [C++服务编译耗时优化原理及实践](https://tech.meituan.com/2020/12/10/apache-kylin-practice-in-meituan.html)
+
 ## 好习惯
 
 - 开启编译选项：`g++ main.cpp -std=c++20 -Wall -Wextra -Wconversion -Wshadow -Werror -o main`
