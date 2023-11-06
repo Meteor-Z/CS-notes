@@ -4,5 +4,5 @@
         "epoll",
         "struct"
     ],
-    "editor.fontFamily": "'JetBrains Mono'"
+    "editor.fontFamily": "'JetBrains Mono','Noto Sans Mono'"
 }
