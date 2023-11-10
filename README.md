@@ -9,6 +9,7 @@
 - 程序员的自我修养（链接，装载和库）光看了前半部分
 - 计算机网络（自顶向下方法） 目前正在看
 - 数据库系统实现 目前正在看
+- [EffectivModernCpp](https://github.com/CnTransGroup/EffectiveModernCppChinese/tree/master/src) 可以反复读
 
 ## 文章
 
