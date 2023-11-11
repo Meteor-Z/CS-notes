@@ -11,6 +11,10 @@
 - 数据库系统实现 目前正在看
 - [EffectivModernCpp](https://github.com/CnTransGroup/EffectiveModernCppChinese/tree/master/src) 可以反复读
 
+## 视频
+
+- [能优化】往数组里写入0为何比写入1更快？详解缓存的工作机制](https://www.bilibili.com/video/BV1gu41117bW/?spm_id_from=333.880.my_history.page.click&vd_source=f1c89669d341702064db968ba68bdc30)
+
 ## 文章
 
 - [What every programmer should know about memory](https://zhuanlan.zhihu.com/p/611133924)（每一个程序员应该知道的内存知识）
