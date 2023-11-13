@@ -13,7 +13,7 @@
 
 ## 视频
 
-- [能优化】往数组里写入0为何比写入1更快？详解缓存的工作机制](https://www.bilibili.com/video/BV1gu41117bW/?spm_id_from=333.880.my_history.page.click&vd_source=f1c89669d341702064db968ba68bdc30)
+- [性能优化 往数组里写入0为何比写入1更快？详解缓存的工作机制](https://www.bilibili.com/video/BV1gu41117bW/?spm_id_from=333.880.my_history.page.click&vd_source=f1c89669d341702064db968ba68bdc30)
 
 ## 文章
 
