@@ -149,6 +149,20 @@ write():将RPC相应发送到客户端。
 
 学到TcpConnection(上)
 
+## TcpClient
+
+connect() -> write() -> read()
+
+connect(): 连接对端机器  
+write(): 将rpc相应发送给客户端  
+read(): 读取客户端发来的请求，组成rpc请求
+
+### 非堵塞 connect
+
+- 返回0, 表示连接成功
+- 返回 -1, 但是 errno == EINPROGRESS, ，表示连接正在建立，可以添加 epoll 去监听可写事件，等待时间就绪之后，调用 getsockopt获取fd的错误，错误为0就表示连接建立成功。
+- 其他errno就是直接报错
+
 ## 遇到的问题
 
 ### 队列未锁导致多次 pop
@@ -177,7 +191,7 @@ target_link_libraries(io_thread_test PRIVATE ${TINYXML})
 target_link_libraries(io_thread_test PRIVATE ${LIBFMT})
 ```
 
-`越基础的库应该越放在后面`，具体的可以看操作系统中关于链接的定义。如果上面的因为链接的顺序颠倒，就直接寄了。。 
+`越基础的库应该越放在后面`，具体的可以看操作系统中关于链接的定义。如果上面的因为链接的顺序颠倒，就直接寄了。。
 
 ### shared_from_this的问题
 
