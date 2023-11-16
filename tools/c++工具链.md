@@ -1,7 +1,7 @@
 # c++ 工具链
 
-操作系统：Arch Linux
-编辑器：Vscode
+操作系统：wsl
+编辑器：vscode
 编译器：clang
 辅助工具：clang-format + clangd + clangd-tidy
 
