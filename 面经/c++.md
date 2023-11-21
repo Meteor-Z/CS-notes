@@ -62,8 +62,10 @@ int main() {
 
 ### 智能指针是线程安全的么？为什么更推荐使用make_unique/shared() ?
 
-是线程安全的  
-防止多个智能指针同时使用同一个指针构造，导致多次构造等
+是线程安全的。
+C++并没有规定函数调用的时候，参数的访问求值等顺序，这个是未定义的，编译器可以随便进行优化
+如何使用`new T`的形式进行初始化，那么就有可能出现内存泄漏
+这两个函数可以保证使用前就可以将内存分配等隐藏在这个函数里面，就不会发生内存泄漏了qwq.
 
 ### namespace {} 这样是干什么的 (就是没有名字的namespace)
 
@@ -114,7 +116,7 @@ int main() {
 ### STL底层的数据结构都是什么数据结构？ 有序的和无序的都是什么？
 
 - 对于有序，都是红黑树
-- 对于无需，都是哈希表
+- 对于无序，都是哈希表
 
 ### sizeof运算符是什么阶段生效的，里面的函数会发生实际作用吗？
 
@@ -123,6 +125,7 @@ int main() {
 ### std::move(a),这样会发生一个移动么？实际上发生了什么？
 
 上面有，仅仅是将一个值类别转换成一个右值，并不会发生移动，移动是移动构造的时候才会发生移动
+`std::move`并没有发生，`std::forward<T>()`也没有进行引用，
 
 ### 为什么单例模式需要通过静态函数创建实例 不能直接一个全局变量或者全部静态方法静态变量？ （链接顺序，已经初始化，空间占用）
 
@@ -149,26 +152,63 @@ void get_some() {
 
 TODO!
 
-### 什么是复杂均衡
+### 为什么这个模板不能直接转换？
 
-### gdb调试
+```c++
+#include <bits/stdc++.h>
+
+template <typename T>
+T BinarySearch(T l, T r, const std::function<bool(T)>& f) {
+    while(l < r) {
+        T mid = (l + r) >> 1;
+        if (f(mid)) l = mid + 1;
+        else r= mid;
+    }
+    return l;
+}
+
+int main() {
+    int n, x;
+    std::cin >> n >> x;
+    int pos = BinarySearch(1, n, [&](int y) {
+        return y > x;
+    }); // wrong
+
+    int pos = BinarySearch<int>(1, n, [&](int y) {
+        return y > x;
+    }); // right 会进行匹配。（绑定到std::function上了）
+    
+    std::cout << pos << std::endl;
+}
+```
+
+lambda是lambda, std::function 是 std::function,两者之间是完全不同的东西，一般运的时候只是将lambda绑定到到了一个std::function上了，但是这两个之间是不能相互转换的。
+
+lambda相当于一个匿名函数，大致相当于一个struct/class的一个operator()
+
+```c++
+auto foo = [](int i) {
+    std::cout << i << std::endl;
+};
+
+struct __anonymous__type__you__cannot__name__ {
+  void operator()(int i) { 
+    std::cout << i << std::endl;
+  }
+};
+
+__anonymous__type__you__cannot__name__ foo;
+
+foo();
+```
+
+因此这两个是完全不相干的东西，lambda不会推断`std::function`的模板参数，不会尝试任何形式的转换。
+
+### 什么是复杂均衡
 
 ### 浮点数存储原理
 
 ### epoll的堵塞？
-
-## 多线程
-
-- 条件变量和信号量有什么区别（我怎么感觉都用条件变量就可以了）
-- 如何实现一个十分安全的条件变量？()
-
-## 实现
-
-- 如何实现一个循环引用？(shared_ptr)
-
-## rpc
-
-- rpc是什么，为什么需要rpc
 
 ## 设计模式
 
