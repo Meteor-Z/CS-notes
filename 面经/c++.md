@@ -204,6 +204,36 @@ foo();
 
 因此这两个是完全不相干的东西，lambda不会推断`std::function`的模板参数，不会尝试任何形式的转换。
 
+### 为什么要用varint代替union
+
+union不允许内部含有非POD对象，但是variant却可以，因为union不能保证调用正确的析构函数，会导致错误。
+
+### noexpect关键字一般在哪一个地方使用？
+
+参考这个例子
+
+```c++
+// 如果将 noexpect去掉的话，那么下面的emplace_back()就不会调用 移动构造函数。
+class A {
+public:
+    A(int) { cout << "A(int)" << endl; }
+    A(const A&) { cout << "A(const A&)" << endl; }
+    A(const A&&) noexcept { cout << "A(const A&&)" << endl; }
+    ~A() { cout << "~S()" << endl; }
+};
+int main() {
+    vector<A> a;
+    cout << a.capacity() << endl;
+    a.emplace_back(1);
+    cout << a.capacity() << endl;
+    a.emplace_back(2);
+    cout << a.capacity() << endl;
+    return 0;
+}
+```
+
+般情况下，移动构造函数与移动赋值函数均应手动添加 noexcept 声明，原因在于 vector 等有强异常安全保证的 STL 容器面对移动构造函数不是 noexcept 的情况会优先考虑使用复制构造函数。也就是说，不加 noexcept，很多情况下移动构造等于白写。
+
 ### 什么是复杂均衡
 
 ### 浮点数存储原理
