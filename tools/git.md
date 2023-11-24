@@ -2,6 +2,25 @@
 
 基础的指令就不介绍了，一下主要是实际应用中使用的
 
+## 提交术语
+
+commit内容是 type: short summary
+
+### Type
+
+- build: 影响构建系统或外部依赖项的更改（example scopes：gulp，broccoli，npm）
+- ci: CI 配置文件和脚本发生了变化（example scopes：Travis、Circle、BrowserStack、SauceLabs）。
+- docs: 仅对文档进行了修改
+- feat: 增加新的特征
+- fix: 修复 bug
+- perf: 提高性能的代码更改
+- refactor: 既不是修复 bug 也不是添加特征的代码重构
+- style: 不影响代码含义的修改，比如空格、格式化、缺失的分号等
+- test: 增加确实的测试或者矫正已存在的测试
+
+
+## 相关命令
+
 - 如何赊销commit
 
 ```shell
@@ -30,12 +49,12 @@ git commit -m "xxxxx" # 提交上去
 
 git checkout main # 切换到main分支
 git pull # 拉取新分支
-git checkout feature/new-feature
-git merge main # 合并到新分支
+# git checkout feature/new-feature
+git merge feature/new-feature # 注意实在主分支上merge副分支
 
 # 将分支推送到远程仓库
 git push origin feature/new-feature
 
-git branch -d feature/new-feature
-git push origin --delete feature/new-feature
+git branch -d feature/new-feature # 删除本地的这个分支
+git push origin --delete feature/new-feature # 删除远程分支
 ```
