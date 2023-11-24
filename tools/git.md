@@ -4,8 +4,12 @@
 
 - 如何赊销commit
 
-```c++
-
+```shell
+git add file
+git commit -m '修改原因'
+git reset --soft HEAD^ #撤销了 commit
+git reset --hard HEAD^ # 连着add也撤销掉
+# 这些是我在branch上进行开发进行实现的
 ```
 
 - 中文乱码解决
