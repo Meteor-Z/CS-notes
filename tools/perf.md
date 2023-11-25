@@ -8,7 +8,6 @@ linux上的性能分析工具。
 ```c++
 sudo pacman -S perf
 yay -S flamegraph-git
-
 ```
 
 ```shell
