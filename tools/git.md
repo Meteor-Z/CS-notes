@@ -65,6 +65,10 @@ git branch -d feature/new-feature # 删除本地的这个分支
 git push origin --delete feature/new-feature # 删除远程分支
 ```
 
+### merge 和 rebase 的区别
+
+
+
 ### 如何提交一个pr
 
 1. 将项目fork到本地，然后拉去过来，
