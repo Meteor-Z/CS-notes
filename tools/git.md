@@ -67,7 +67,7 @@ git push origin --delete feature/new-feature # 删除远程分支
 
 ### merge 和 rebase 的区别
 
-
+merge是直接合并到主分支，会产生聊天记录
 
 ### 如何提交一个pr
 
