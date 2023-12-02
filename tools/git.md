@@ -8,7 +8,7 @@
 
 commit内容是 type: short summary
 
-### Type
+## Type
 
 - build: 影响构建系统或外部依赖项的更改（example scopes：gulp，broccoli，npm）
 - ci: CI 配置文件和脚本发生了变化（example scopes：Travis、Circle、BrowserStack、SauceLabs）。
@@ -20,9 +20,7 @@ commit内容是 type: short summary
 - style: 不影响代码含义的修改，比如空格、格式化、缺失的分号等
 - test: 增加确实的测试或者矫正已存在的测试
 
-## 相关流程
-
-### 如何赊销commit
+## 如何撤销commit
 
 ```shell
 git add file
@@ -37,13 +35,13 @@ git add .
 git commit -m "xxxxx"
 ```
 
-### 中文乱码解决
+## 中文乱码解决
 
 ```shell
 git config --global core.quotepath false
 ```
 
-### 项目中开发一个新玩意
+## 项目中开发一个新玩意
 
 1. 创建一个新分支
 
@@ -65,11 +63,14 @@ git branch -d feature/new-feature # 删除本地的这个分支
 git push origin --delete feature/new-feature # 删除远程分支
 ```
 
-### merge 和 rebase 的区别
+## merge 和 rebase 的区别
 
-merge是直接合并到主分支，会产生聊天记录
+merge我认为是是直接合并到主分支，好像就是head头直接平移到branch上面的一样，  
+但是rebase不一样，开一个新branch之后，rebase像是从旧main上然后迁移到新main上，然后再提交上去。
 
-### 如何提交一个pr
+## 如何提交一个pr
+
+注意，提交的时候是提交一个branch上去，。然后将branch合并上去
 
 1. 将项目fork到本地，然后拉去过来，
 2. 本地开一个新的branch,在branch上进行开发新玩意
