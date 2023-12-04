@@ -2,7 +2,12 @@
 
 基础的指令就不介绍了，一下主要是实际应用中使用的
 
-## 如何将
+## 中文乱码解决
+
+```shell
+git config --global core.quotepath false
+```
+
 
 ## 提交术语
 
@@ -20,6 +25,9 @@ commit内容是 type: short summary
 - style: 不影响代码含义的修改，比如空格、格式化、缺失的分号等
 - test: 增加确实的测试或者矫正已存在的测试
 
+### `借鉴`别人的提交记录
+
+
 ## 如何撤销commit
 
 ```shell
@@ -35,11 +43,6 @@ git add .
 git commit -m "xxxxx"
 ```
 
-## 中文乱码解决
-
-```shell
-git config --global core.quotepath false
-```
 
 ## 项目中开发一个新玩意
 
