@@ -25,7 +25,16 @@ commit内容是 type: short summary
 - style: 不影响代码含义的修改，比如空格、格式化、缺失的分号等
 - test: 增加确实的测试或者矫正已存在的测试
 
-### `借鉴`别人的提交记录
+### `借鉴`别人的提交记录（例子）
+
+我借鉴了几位（很多位的例子的github提交记录，如zwxgg,u姐姐等  
+
+- `vault backup + 时间`： 保存，备份，（好像没什么内容
+- `fix: do not allow creating nightly github release without binary`: 修复bug
+- `doc：fix wrong layout`：修复错误的格式
+- `ci: update docker build arguments`: ci,测试环境，修复build的arguments
+- `feat: add xxx`: 增加了什么新特性
+
 
 
 ## 如何撤销commit
