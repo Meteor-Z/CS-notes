@@ -1,9 +1,9 @@
 # c++ 工具链
 
-操作系统：wsl
+操作系统：Arch
 编辑器：vscode
 编译器：clang
-辅助工具：clang-format + clangd + clangd-tidy
+辅助工具：clangd + clang-format + clang-tidy
 
 ## 注意事项
 
@@ -20,3 +20,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 clang-format的放在项目目录中使用`.clang-format`即可生成。
 
 ## 编译代码
+
+- 开启编译选项：`g++ main.cpp -std=c++20 -Wall -Wextra -Wconversion -Wshadow -Werror -o main`
+  - `-Wall -Wextra -Wconversion -Wshadow`:基本上就开启了所有警告
+  - `Werror`:将警告变成错误
+
