@@ -34,8 +34,6 @@ commit内容是 type: short summary
 - `ci: update docker build arguments`: ci,测试环境，修复build的arguments
 - `feat: add xxx`: 增加了什么新特性
 
-
-
 ## 如何撤销commit
 
 ```shell
@@ -50,7 +48,6 @@ git reset HEAD~5 # revert the last 5 commits
 git add .
 git commit -m "xxxxx"
 ```
-
 
 ## 项目中开发一个新玩意
 

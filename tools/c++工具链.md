@@ -24,4 +24,3 @@ clang-format的放在项目目录中使用`.clang-format`即可生成。
 - 开启编译选项：`g++ main.cpp -std=c++20 -Wall -Wextra -Wconversion -Wshadow -Werror -o main`
   - `-Wall -Wextra -Wconversion -Wshadow`:基本上就开启了所有警告
   - `Werror`:将警告变成错误
-
