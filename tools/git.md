@@ -8,7 +8,6 @@
 git config --global core.quotepath false
 ```
 
-
 ## 提交术语
 
 commit内容是 type: short summary
