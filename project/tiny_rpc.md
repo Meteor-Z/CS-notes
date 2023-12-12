@@ -147,8 +147,6 @@ write():将RPC相应发送到客户端。
 
 上述的都是从Buffer上构建的.
 
-学到TcpConnection(上)
-
 ## TcpClient
 
 connect() -> write() -> read()
@@ -169,9 +167,31 @@ read(): 读取客户端发来的请求，组成rpc请求
 
 ## 字节序
 
-使用大端存储
+使用大端存储（网络序）
 
 开始符 - 整包长度（四字节，包含开始符和结束符） - reqid长度 - reqid - 方法名长度 - 方法名 - 错误码 - 错误信息长度 - 错误信息 - protobuf序列化数据 - 校验码（我觉得应该使用md5）- 结束符
+
+## 分发器
+
+read() -> decode() -> dispatcher() -> encode() -> wirte()
+
+dispatcher() 是分发器，将请求的东西进行分发
+
+```protubuf
+service OrderService {
+    rpc make_order(makeOrderRequest) returns (OrderResponse);
+    rpc query_order(queryOrderRequest) returns (queryOrderResponse);
+}
+```
+
+### RPC服务端的流程（从protubuf中读取数据）
+
+1. 注册一个 OrderService 对象
+2. 从OrderService 对象中得到 service.method_name， 根据这个name，从中 找到方法   func
+3. 找到对应的 request type 以及 response type
+4. 将请求体李米娜 pb_data 反序列化为 request type 对象，声明一个空的 response type 的对象
+5. func(request, response)
+6. 将 response 对象序列化成 pb_data, 做encode 然后塞入buffer里面，就会发送回包了。
 
 ## 遇到的问题
 
@@ -243,9 +263,13 @@ struct Node: public std::enable_shared_from_this<Node> { };
 
 int main() {
     std::shared_ptr<Node> a = std::make_shared<Node>();
-    std::shared_ptr<Node> b = a.share_+from_this();
+    std::shared_ptr<Node> b = a.share_from_this();
     return 0;
 }
 ```
 
 那我直接调用构造的有什么区别呢？
+
+### 程序有时候非正常断开，绑定了同一个端口，但是重启，我的端口还是占用，这是怎么回事？
+
+端口处于`time_wait`状态, 就是计网里面四次挥手的最后`Time_wait`，linux上大约是是2个msl,也就是2 * 30 ms = 1min 的时间，处于这个状态，于是就不能连接了。
