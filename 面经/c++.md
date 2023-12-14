@@ -179,7 +179,7 @@ int main() {
 
     int pos = BinarySearch<int>(1, n, [&](int y) {
         return y > x;
-    }); // right 会进行匹配。（绑定到std::function上了）
+    }); // right
     
     std::cout << pos << std::endl;
 }

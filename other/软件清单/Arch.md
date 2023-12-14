@@ -1,54 +1,18 @@
-# 装机必备软件
+# Arch
 
-重蹈覆辙，我还是喜欢使用Arch Linux,我已经离不开Arch了，我的所有办公生产力都在Arch上了。
+一直以来，如果使用linux的话，那么都是Arch，以下都是Arch的相关配置。
 
-坏了，我还是换成了windows + wsl 了，已经够满足我的日常生活了
+## 驱动
 
-## Windows
+每一台电脑的驱动是不一样的，按照当前电脑的驱动进行安装，注意安装cpu和gpu（核显和独显），以下相关网址
 
-对于windwos,我觉得下载软件还是直接去官网上进行下载，不需要包管理工具，因为windwos本身与linux就是不相同的，网上的能直接更新，以下是我常用的工具
+1. [Arch 简明指南驱动安装](https://arch.icekylin.online/guide/rookie/graphic-driver.html)
 
-- 相关驱动：使用驱动精灵安装，然后使用geek将驱动精灵卸载掉
-- 聊天软件：qq 和微信
-- 编辑器: vscode
-- 浏览器：firefox
-- 页面查找：utools + everythings
-- 种子下载：qbittorrent-enhanced-edition
-- 代理软件：cfw
-- 杀毒软件：火绒（虽然我不知道他在干什么）
-- 文件解压：bandzip
-- office: wps大庆版
-- 发送请求：postman
-- 视频播放器: vlc
+## 换源头
 
-## WsL
+中科大Archcn源: [网站](https://mirrors.ustc.edu.cn/help/archlinuxcn.html)
 
-### 换源
-
-```shell
-sudo sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list
-```
-
-### 安装软件
-
-```shell
-sudo apt install gcc
-sudo apt install g++
-sudo apt install gdb
-sudo apt install cmake
-sudo apt install clangd 
-sudo apt install clang-format
-sudo apt install manpages-zh # 中文man
-sudo apt install language-pack-zh-hans # 汉字显示
-sudo apt install libboost-all-dev # boost库
-sudo apt install zsh
-sudo apt install libprotobuf-dev protobuf-compiler # protobuf
-sudo apt install valgrind # 内存泄漏检测工具
-sudo apt install cppcheck # 简单的静态cpp检测  cppcheck xxx.cpp 即可
-sudo apt install fonts-jetbrains-mono # 字体
-```
-
-## oh-my-zsh
+## zsh
 
 ```shell
 sh -c "$(curl -fsSL https://gitee.com/Devkings/oh_my_zsh_install/raw/master/install.sh)"
@@ -57,19 +21,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions sudo)
 ```
 
-## linux (基于Arch)
-
-### 驱动
-
-每一台电脑的驱动是不一样的，按照当前电脑的驱动进行安装，注意安装cpu和gpu（核显和独显），以下相关网址
-
-1. [Arch 简明指南驱动安装](https://arch.icekylin.online/guide/rookie/graphic-driver.html)
-
-### 换源头
-
-中科大Archcn源: [网站](https://mirrors.ustc.edu.cn/help/archlinuxcn.html)
-
-### 相关软件
+## 相关软件
 
 ```bash
 sudo pacman -Syyu # 更新
@@ -122,7 +74,7 @@ yay -S flamegraph-git # 生成flamegraph用的。
 sudo yay -s wps-office wps-office-mui-zh-cn wps-office-mime-cn wps-office-fonts ttf-ms-fonts ttf-wps-fonts # wps的相关
 ```
 
-### wps防止爆体
+## wps防止爆体
 
 有的字体在linux上是黑乎乎的一片，需要进行下载安装包`freetype2`的旧版安装包进行升级安装  
 链接：[freetype2](https://archive.org/download/archlinux_pkg_freetype2/freetype2-2.13.0-1-x86_64.pkg.tar.zst)
