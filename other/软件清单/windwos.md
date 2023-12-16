@@ -19,6 +19,23 @@
 - 发送请求：postman
 - 视频播放器: vlc
 
+## scoop
+
+一些专业软件还是用scoop安装比较方便
+
+### 安装scoop
+
+```shell
+set-executionpolicy remotesigned -scope currentuser
+iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+```
+### 软件
+
+```shell
+scoop install git 
+scoop install gcc
+```
+
 ## Firefox
 
 firefoex需要以下设置, 否则进入全屏播放的时候比较慢
