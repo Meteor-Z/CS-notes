@@ -67,7 +67,7 @@ tcp属于传输层的协议，基于字节流而不是信息包的协议，将�
 
 ## 各个协议位于那一层？
 
-应用层: ssh，http, https, SMTP, FTP, 
+应用层: ssh，http, https, SMTP, FTP
 运输层: tcp
 网络层: ip
 数据链路层：xxxxx

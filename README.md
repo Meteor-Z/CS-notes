@@ -14,8 +14,10 @@
 ## 视频
 
 - [性能优化 往数组里写入0为何比写入1更快？详解缓存的工作机制](https://www.bilibili.com/video/BV1gu41117bW/?spm_id_from=333.880.my_history.page.click&vd_source=f1c89669d341702064db968ba68bdc30)
+- [git成熟项目的工作流](https://www.bilibili.com/video/BV19e4y1q7JJ/)
 
 ## 文章
 
 - [What every programmer should know about memory](https://zhuanlan.zhihu.com/p/611133924)（每一个程序员应该知道的内存知识）
 - [C++服务编译耗时优化原理及实践](https://tech.meituan.com/2020/12/10/apache-kylin-practice-in-meituan.html)
+- [git merge 和 rebase 的 区别](https://www.cnblogs.com/FraserYu/p/11192840.html)
