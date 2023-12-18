@@ -29,6 +29,7 @@
 set-executionpolicy remotesigned -scope currentuser
 iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
 ```
+
 ### 软件
 
 ```shell
