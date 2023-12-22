@@ -2,14 +2,19 @@
 
 linux上的性能分析工具。
 
-一般是来做火焰图的，下面是工具命令
+wsl上安装上网google一下，其他的基本都可以直接安装
+
+~~一般是来做火焰图的，下面是工具命令~~
 
 ## 工具
 
-```c++
-sudo pacman -S perf
-yay -S flamegraph-git
+代码来自《CPU性能与优化》
+
+```shell
+
 ```
+
+### 制作火焰图
 
 ```shell
 # record 表示采集系统事件

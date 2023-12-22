@@ -2,6 +2,12 @@
 
 众所周知，windwos是linux最好的发行版，wsl可以满足基本可以满足我所有的开发需求了，一下是wsl的相关配置
 
+## 换源
+
+```shell
+sudo sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list
+```
+
 ## zsh
 
 ```shell
