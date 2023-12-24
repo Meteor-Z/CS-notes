@@ -4,7 +4,6 @@
 - `const` 和 `noexpect` 加入的合适地方
 - 移动构造函数一定要加入`noexpect`
 
-
 ```c++
 #include <bits/stdc++.h>
 

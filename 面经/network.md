@@ -27,7 +27,8 @@ UDP几乎建立在IP协议上，几乎没有干过任何事情
 
 ## http 和 https 有什么区别？
 
-https经过了加密，使用的是`SSL/TLS`技术，
+https经过了加密，使用的是`TLS/SSL`技术进行加密
+公钥和私钥进行加密，是非对称加密，其中还有CA机构什么的，有空抓门写一个文章讲讲
 
 ## select poll epoll的总结
 
@@ -69,7 +70,7 @@ tcp属于传输层的协议，基于字节流而不是信息包的协议，将�
 
 ## 各个协议位于那一层？
 
-应用层: ssh，http, https, SMTP, FTP
-运输层: tcp
+应用层: ssh，http(tcp), https(tcp), SMTP(tcp), FTP(tcp), dns(udp)
+运输层: tcp, udp
 网络层: ip
 数据链路层：xxxxx

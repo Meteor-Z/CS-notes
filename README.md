@@ -14,7 +14,6 @@
 - [EffectivModernCpp](https://github.com/CnTransGroup/EffectiveModernCppChinese/tree/master/src) 可以反复读
 - 现代cpu性能优化与分析 只有200页，但是信息量巨大
 - Linux多线程服务端编程：使用muduo C++网络库 陈硕的，非常不错
-- 
 
 ## 视频
 
@@ -36,4 +35,13 @@
 - [zwx](https://github.com/zweix123/CS-notes)
 - [韦易笑](https://www.zhihu.com/people/skywind3000)
 - [双笙子佯谬](https://space.bilibili.com/263032155) 讲解c++视频的
+
+## 网站
+
+好用的网站都放在这了
+
+- 绘图网站:
+  - [Graph Editor](https://csacademy.com/app/graph_editor/)
+  - [draw.io](https://draw.io)
+- 剪切板：[godbolt](https://godbolt.org)
 
