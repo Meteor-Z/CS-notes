@@ -6,7 +6,7 @@
 
 ```shell
 sudo apt intall doxygen # 
-sudo apt install graphviz # 图形化调用
+sudo apt install graphviz # 图形化调用需要使用
 ```
 
 ## 生成
@@ -27,6 +27,5 @@ doxygen Doxyfile
 根据这个类的相关注释来生成相关的doxygen
 
 ```c++
-
 
 ```
