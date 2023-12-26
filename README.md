@@ -43,5 +43,9 @@
 - 绘图网站:
   - [Graph Editor](https://csacademy.com/app/graph_editor/)
   - [draw.io](https://draw.io)
-- 剪切板：[godbolt](https://godbolt.org)
+- 剪切板：
+  - [godbolt](https://godbolt.org)
+  - [在线剪切板](https://paste.nugine.xyz)
+- c++
+  - [cppreference](https://zh.cppreference.com/w/%E9%A6%96%E9%A1%B5)
 
