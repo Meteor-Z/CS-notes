@@ -47,5 +47,7 @@
   - [godbolt](https://godbolt.org)
   - [在线剪切板](https://paste.nugine.xyz)
 - c++
-  - [cppreference](https://zh.cppreference.com/w/%E9%A6%96%E9%A1%B5)
+  - [cppreference](https://zh.cppreference.com/w/%E9%A6%96%E9%A1%B5) 手册
+  - [cppinsights](https://cppinsights.io) 解糖用的
+- [知乎](https://www.zhihu.com)
 
