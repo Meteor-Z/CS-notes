@@ -26,6 +26,7 @@
 - [C++服务编译耗时优化原理及实践](https://tech.meituan.com/2020/12/10/apache-kylin-practice-in-meituan.html)
 - [git merge 和 rebase 的 区别](https://www.cnblogs.com/FraserYu/p/11192840.html)
 - [为什么for循环的时候要使用auto遍历的原因](https://www.zhihu.com/question/355171938/answer/899154458)
+- [浮点数误差](https://zhuanlan.zhihu.com/p/673320830)  
 
 ## 博主
 
