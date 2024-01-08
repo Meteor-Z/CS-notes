@@ -27,6 +27,7 @@
 - [git merge 和 rebase 的 区别](https://www.cnblogs.com/FraserYu/p/11192840.html)
 - [为什么for循环的时候要使用auto遍历的原因](https://www.zhihu.com/question/355171938/answer/899154458)
 - [浮点数误差](https://zhuanlan.zhihu.com/p/673320830)  
+- [markdown中mermaid的用法](https://soft.xiaoshujiang.com/docs/grammar/feature/mermaid/#e59bbee8a1a8e696b9e59091_7)
 
 ## 博主
 
@@ -42,7 +43,7 @@
 好用的网站都放在这了
 
 - 绘图网站:
-  - [Graph Editor](https://csacademy.com/app/graph_editor/)
+  - [Graph Editor](https://csacademy.com/app/graph_editor)
   - [draw.io](https://draw.io)
 - 剪切板：
   - [godbolt](https://godbolt.org)
@@ -51,4 +52,4 @@
   - [cppreference](https://zh.cppreference.com/w/%E9%A6%96%E9%A1%B5) 手册
   - [cppinsights](https://cppinsights.io) 解糖用的
 - [知乎](https://www.zhihu.com)
-
+- [IEEE754计算](http://weitz.de/ieee)

@@ -1,6 +1,5 @@
 # vscode
 
-
 vscode是我使用最多的编辑器，除了写java, 我感觉它什么都可以干。以下是我的一些配置  
 vscode的配置一般是`json`文件，使用json文件进行配置
 
