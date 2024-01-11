@@ -13,14 +13,13 @@ int a = 0;
 int b = 1;
 int c = 2;
 
-void do_something(int& a,int& b, int& c)
-{
+void do_something(int& a,int& b, int& c) {
     a++;
     b++;
     c++;
 }
-int main()
-{
+
+int main() {
     std::thread t1(do_something, std::ref(a), std::ref(b), std::ref(c)); 
     t1.join();
     std::cout << a << ' ' << b << ' ' << c << std::endl; // 1 2 3
@@ -39,8 +38,8 @@ public:
     void do_something() { std::cout << "yes" << std::endl; }
 } temp;
 
-int main()
-{   // 当于传入一个参数，这个参数是函数的自己，我学过哦~，还是看过深入探索c++对象模型的
+int main() {
+    // 当于传入一个参数，这个参数是函数的自己，我学过哦~，还是看过深入探索c++对象模型的
     std::thread t1(&Node::do_something, temp); // yes
 }
 ```
@@ -53,4 +52,3 @@ int main()
 3. 固定顺序获取锁
    1. 选择`std::scoped_lock<std::mutex, std::mutex> lock { m1, m2 }`,scooped_lock来同时获取锁
    2. 按照地址的高低来获取锁，避免一个抢A，一个抢B
-   3.

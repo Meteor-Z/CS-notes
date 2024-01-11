@@ -106,7 +106,7 @@ C++并没有规定函数调用的时候，参数的访问求值等顺序，这�
   - 对于引用和指针有不同的情况，因为引用不不能为空，所以这时候抛出去的是异常，指针则是`nullptr`,
   - 派生类转向基类的时候，`static_cast`和`dynamic_cast`都安全
   - 但是返的话，那么`dynamic_cast`比较安全。
-  - 运行期间进行转换，上行转化是安全的，但是下行转化`dynamic_cast`就比较安全，因为会返回 nullptr e
+  - 运行期间进行转换，上行转化是安全的，但是下行转化`dynamic_cast`就比较安全，因为会返回 nullptr
 - const_cast
   - 不是很懂
 - static_cast
