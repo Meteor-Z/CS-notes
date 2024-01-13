@@ -83,6 +83,3 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 ### clang-format
 
 clang-format的放在项目目录中使用`.clang-format`即可生成。
-
-
-
