@@ -4,6 +4,6 @@
         "epoll",
         "struct"
     ],
-    "editor.fontFamily": "'JetBrains Mono','微软雅黑'",
-    "editor.inlayHints.fontFamily": "'JetBrains Mono','微软雅黑'"
+    "editor.fontFamily": "'JetBrains Mono','wqy-microhei'",
+    "editor.inlayHints.fontFamily": "'JetBrains Mono','wqy-microhei'"
 }

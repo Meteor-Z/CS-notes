@@ -4,9 +4,10 @@
 
 ## 驱动
 
-每一台电脑的驱动是不一样的，按照当前电脑的驱动进行安装，注意安装cpu和gpu（核显和独显），以下相关网址
+- 每一台电脑的驱动是不一样的，按照当前电脑的驱动进行安装，注意安装cpu和gpu（核显和独显），以下相关网址
 
-1. [Arch 简明指南驱动安装](https://arch.icekylin.online/guide/rookie/graphic-driver.html)
+- [Arch 简明指南驱动安装](https://arch.icekylin.online/guide/rookie/graphic-driver.html)
+- 安装过后可以在firefox浏览器上查看软硬件编解码支持不支持
 
 ## 换源头
 
@@ -55,14 +56,14 @@ sudo pacman -S wine # 可能需要一些游戏什么的
 sudo pacman -S scrcpy # 安卓投屏， 安卓打开应用开发者模式，然后 adb devices， 然后 scrcpy 即可
 sudo pacman -S clion # 构建工具
 sudo pacman -S clion-jre # 解决ui界面的问题
-sudo pacman -S clang clangd clang-tidy # clang 编译器
+sudo pacman -S clang clang-tidy # clang 编译器
 sudo pacman -S neofetch # 装逼用
 sudo pacman -S fcitx5-im fcitx5-chinese-addons fcitx5-pinyin-zhwiki # 中文输入法
 sudo pacman -S zsh # zsh太好用了
 sudo pacman -S net-tools dnsutils inetutils iproute2 # 网络相关
-sudo pacman -S obs-studio # obs 直播用的
-sduo pacman -S man man-pages-zh_cn # 中文版的man
-sudo pacman -S adobe-source-han-serif-cn-fonts wqy-zenhei # 相关字体
+# sudo pacman -S obs-studio # obs 直播用的 可以直接去 steam 上进行下载
+sudo pacman -S man man-pages-zh_cn # 中文版的man
+sudo pacman -S adobe-source-han-serif-cn-fonts wqy-zenhei wqy-microhei # 相关字体
 sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra # 相关字体
 # yay -S ttf-ms-win10-auto # win10微软字体 有少许问题。。。
 # yay -S ttf-ms-win11-auto # win11微软字体
@@ -71,7 +72,7 @@ yay -S qbittorrent-enhanced # qbittorrent的增强版 下载电影用的，但�
 yay -S visual-studio-code-bin # vscode
 yay -S debtap # 转换 deb包， sudo debtap -u -- debtap xxx.deb  sudo pacman -U xxxx
 yay -S flamegraph-git # 生成flamegraph用的。
-sudo yay -s wps-office wps-office-mui-zh-cn wps-office-mime-cn wps-office-fonts ttf-ms-fonts ttf-wps-fonts # wps的相关
+yay -S wps-office wps-office-mui-zh-cn wps-office-mime-cn wps-office-fonts ttf-ms-fonts ttf-wps-fonts # wps的相关
 ```
 
 ## wps防止爆体
