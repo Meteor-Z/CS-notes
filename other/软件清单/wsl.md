@@ -1,6 +1,6 @@
 # Wsl
 
-众所周知，windwos是linux最好的发行版，wsl可以满足基本可以满足我所有的开发需求了，一下是wsl的相关配置
+众所周知，windwos是linux最好的发行版，wsl可以满足基本可以满足我所有的开发需求了，以下是wsl的相关配置
 
 ## 换源
 
@@ -33,7 +33,7 @@ sudo apt install clang-format
 sudo apt install manpages-zh # 中文man
 sudo apt install language-pack-zh-hans # 汉字显示
 sudo apt install libboost-all-dev # boost库
-sudo apt install libprotobuf-dev protobuf-compiler # protobuf
+# sudo apt install libprotobuf-dev protobuf-compiler # protobuf 
 sudo apt install valgrind # 内存泄漏检测工具
 sudo apt install cppcheck # 简单的静态cpp检测  cppcheck xxx.cpp 即可
 sudo apt install fonts-jetbrains-mono # 字体
