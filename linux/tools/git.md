@@ -40,7 +40,7 @@ commit内容是 type: short summary
 git add file
 git commit -m '修改原因'
 git reset --soft HEAD^ #撤销了 commit
-git reset --hard HEAD^ # 连着add也撤销掉
+git reset --hard HEAD^ # 连着add也撤销掉 或者后面跟上那个哈希值
 # 这些是我在branch上进行开发进行实现的
 
 # 撤销多个commit 然后恢复成一个
@@ -85,3 +85,8 @@ merge我认为是是直接合并到主分支，好像就是head头直接平移�
 3. 将branch提交到github上
 4. 然后用branch提交一下对面main里面
 5. 然后将代码同步一下（github只能自动更新）然后删除branch
+
+## 常见命令
+
+- 修改默认编辑器为vim：`git config core.editor vim`
+- 

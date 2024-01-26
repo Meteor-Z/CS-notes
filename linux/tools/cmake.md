@@ -57,8 +57,6 @@ else ()
     message(FATAL_ERROR "libfmt not found")
 endif ()
 
-
-
 if (TINYXML)
     message(STATUS "找到了这个库: ${TINYXML}")
 else ()
@@ -87,8 +85,12 @@ target_link_libraries(io_thread_test
 
 add_test(NAME test COMMAND io_thread_test)
 ```
+## 系统预安装
+
+find_package是系统中预安装的库，是cmake中给你定义好的东西，但是你本地还是要有相关的头文件，应该是这样子的qwq
 
 ## 注意事项
 
 - 在链接的时候要格外注意一定要按照顺序进行连接，就是没有依赖的往前面链接，有依赖的往后面链接，否则就会寄了！！
   - 这里如果一个程序依赖A库B库，同时A需要B，那么应该这样写`target_link_libraries(project B A)`,
+- 一定要多打日志，就是message()的信息日志

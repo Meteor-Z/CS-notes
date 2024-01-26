@@ -8,7 +8,6 @@ vscode的配置一般是`json`文件，使用json文件进行配置
 这个字体调整了半天，哎，好多字体的标点符号的真难看，所以换成了微软雅黑，但是发现一换字体有点没法接受，估计以后就会接受了吧
 
 ```shell
-'JetBrains Mono','wqy-microhei'
 'JetBrains Mono','微软雅黑'
 ```
 

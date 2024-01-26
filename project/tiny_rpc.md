@@ -223,6 +223,10 @@ target_link_libraries(io_thread_test PRIVATE ${LIBFMT})
 
 `越基础的库应该越放在后面`，具体的可以看操作系统中关于链接的定义。如果上面的因为链接的顺序颠倒，就直接寄了。。
 
+### RpcChannel
+
+客户端与服务端进行通讯的的工具
+
 ### shared_from_this的问题
 
 构造的时候，乱用 shared_from_this()导致 导致寄寄寄。
@@ -273,3 +277,7 @@ int main() {
 ### 程序有时候非正常断开，绑定了同一个端口，但是重启，我的端口还是占用，这是怎么回事？
 
 端口处于`time_wait`状态, 就是计网里面四次挥手的最后`Time_wait`，linux上大约是是2个msl,也就是2 * 30 ms = 1min 的时间，处于这个状态，于是就不能连接了。
+
+### protobuf版本问题
+
+参考我写的文章：[protobuf链接问题](https://zhuanlan.zhihu.com/p/679834990)
