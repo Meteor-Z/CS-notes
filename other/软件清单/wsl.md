@@ -15,6 +15,10 @@ plugins=(git zsh-syntax-highlighting zsh-autosuggestions sudo)
 ## 软件
 
 ```shell
+sudo zypper update # 更新软件
+sudo zypper se xxx # 搜索软件
+sudo zypper rm xxx # 删除软件
+sudo zypper install xxx # 安装软件
 
 sudo zypper install zsh
 sudo zypper install neofetch # 装逼
@@ -28,4 +32,5 @@ sudo zypper install man-pages-zh_CN man-pages-posix # 中文man以及相关的 p
 sudo zypper install valgrind # 内存泄漏检测工具
 sudo zypper install btop # 终端管理
 sudo zypper install perf # 性能分析
+sudo zypper install ripgrep # 捕捉
 ```
