@@ -46,6 +46,11 @@
 - [浮点数误差](https://zhuanlan.zhihu.com/p/673320830)  
 - [markdown中mermaid的用法](https://soft.xiaoshujiang.com/docs/grammar/feature/mermaid/#e59bbee8a1a8e696b9e59091_7)
 - [提问的艺术](https://zhuanlan.zhihu.com/p/20752519)
+- [什么时候使用const_cast](http://blog.hostilefork.com/when-should-one-use-const-cast/)
+- [为什么std::vector比std::list快](https://stackoverflow.com/questions/238008/relative-performance-of-stdvector-vs-stdlist-vs-stdslist)
+- [加入const为什么可以优化代码(取模运算)](https://zhuanlan.zhihu.com/p/151038723)
+- [测试oj网站的cpu, 好有趣](https://zhuanlan.zhihu.com/p/28322626)
+- 
 
 ## 博主
 
@@ -74,4 +79,6 @@
 
 ## 第三方库
 
-- backward-cpp
+- backward-cpp: 相当于gdb中的bt指令
+- fmt: 格式化的
+- 

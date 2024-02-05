@@ -66,7 +66,6 @@ git push origin feature/new-feature
 # git checkout feature/new-feature
 git merge feature/new-feature # 注意实在主分支上merge副分支
 
-
 git branch -d feature/new-feature # 删除本地的这个分支
 git push origin --delete feature/new-feature # 删除远程分支
 ```
@@ -80,13 +79,12 @@ merge我认为是是直接合并到主分支，好像就是head头直接平移�
 
 注意，提交的时候是提交一个branch上去，。然后将branch合并上去
 
-1. 将项目fork到本地，然后拉去过来，
-2. 本地开一个新的branch,在branch上进行开发新玩意
-3. 将branch提交到github上
-4. 然后用branch提交一下对面main里面
-5. 然后将代码同步一下（github只能自动更新）然后删除branch
+1. 将项目fork到本地，然后拉去过来: `这个在github上进行操作`
+2. 本地开一个新的branch,在branch上进行开发新玩意:`git checkout -b feat-xxxx`
+3. 将branch提交到github上: `git push origin feat-xxxx`
+4. 然后用branch提交一下对面main里面: `在github上提交branch`
+5. 然后将代码同步一下（github只能自动更新）然后删除branch:`将本地的分支删除，然后重新拉取分支`
 
-## 常见命令
+## 修改默认编辑器为 nvim
 
-- 修改默认编辑器为vim：`git config core.editor vim`
-- 
+- 修改默认编辑器为vim：`git config core.editor nvim`

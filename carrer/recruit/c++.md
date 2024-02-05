@@ -332,3 +332,45 @@ public:
 - 因为相当于B里面有一个A，然后发现前面没有A相关的类，导致寄了
 - 这时候可以需要使用指针并且前置声明来避免循环依赖(并且不能使用智能指针)
 - 如果这个还不行，那么就重新处理关系吧
+
+## const_cast的作用？
+
+- 使用const_cast改变数据的数值是UB的行为，这种行为是不好的
+- 使用const_cast的情况是在传入参数的情况，一个非const的东西没有办法传递给一个带const的参数，这时候就需要const_cast
+
+```c++
+#include <iostream>
+
+void foo(int* a) { std::cout << *a << std::endl; }
+
+int main() {
+    const int* p = new int(10);
+    foo(const_cast<int*>(p));
+}
+```
+
+## lmbda 函数捕获的坑？
+
+- 值捕获是直接进行捕获了，没有调用前就直接捕获了，但是引用捕获并不会，就是正常的函数似的
+- 但是引用捕获可能会造成一定的悬垂引用
+- 悬垂引用的例子
+
+```c++
+#include <bits/stdc++.h>
+#include <functional>
+
+std::function<void()> get_func() {
+    int a = 2;
+    return [&a]() { std::cout << a << std::endl; };
+}
+
+int main() {
+    auto f = get_func();
+    f(); // UB
+}
+```
+
+## std::sort 和 qsort哪一个快？
+
+- qsort中的Compare函数是void*的，只有在运行的时候才会解引用，但是C++传入的是模板，也就是说在编译期就可以进行处理出来，提供给编译器一些优化
+- 在编译期具象化，可以进行一定的内联。

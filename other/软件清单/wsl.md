@@ -28,7 +28,7 @@ sudo zypper install gdb
 sudo zypper install cmake
 sudo zypper install clangd 
 sudo zypper install clang-format
-sudo zypper install man-pages-zh_CN man-pages-posix # 中文man以及相关的 page
+sudo zypper install man-pages man-pages-zh_CN man-pages-posix # 中文man以及相关的 page
 sudo zypper install valgrind # 内存泄漏检测工具
 sudo zypper install btop # 终端管理
 sudo zypper install perf # 性能分析
