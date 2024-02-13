@@ -42,7 +42,7 @@
 - [What every programmer should know about memory](https://zhuanlan.zhihu.com/p/611133924)（每一个程序员应该知道的内存知识）
 - [C++服务编译耗时优化原理及实践](https://tech.meituan.com/2020/12/10/apache-kylin-practice-in-meituan.html)
 - [git merge 和 rebase 的 区别](https://www.cnblogs.com/FraserYu/p/11192840.html)
-- [为什么for循环的时候要使用auto遍历的原因](https://www.zhihu.com/question/355171938/answer/899154458)
+- [for循环的时候要使用auto遍历的原因](https://www.zhihu.com/question/355171938/answer/899154458)
 - [浮点数误差](https://zhuanlan.zhihu.com/p/673320830)  
 - [markdown中mermaid的用法](https://soft.xiaoshujiang.com/docs/grammar/feature/mermaid/#e59bbee8a1a8e696b9e59091_7)
 - [提问的艺术](https://zhuanlan.zhihu.com/p/20752519)
@@ -50,6 +50,8 @@
 - [为什么std::vector比std::list快](https://stackoverflow.com/questions/238008/relative-performance-of-stdvector-vs-stdlist-vs-stdslist)
 - [加入const为什么可以优化代码(取模运算)](https://zhuanlan.zhihu.com/p/151038723)
 - [测试oj网站的cpu, 好有趣](https://zhuanlan.zhihu.com/p/28322626)
+- [gdb的实现原理](https://linux.cn/article-8943-1.html)
+- [看懂火焰图，火焰图基本入门](https://www.ruanyifeng.com/blog/2017/09/flame-graph.html)
 - 
 
 ## 博主
@@ -79,6 +81,9 @@
 
 ## 第三方库
 
-- backward-cpp: 相当于gdb中的bt指令
-- fmt: 格式化的
-- 
+- [backward-cpp](https://github.com/bombela/backward-cpp): 相当于gdb中的bt指令，可以在代码出现问题的时候打印出调用栈
+- [fmt](https://github.com/fmtlib/fmt): 现代的C++格式化库，进入C++20标准里面了
+- [compiledb](https://github.com/nickdiego/compiledb): 生成非cmake的clangd的json信息的
+- [googletest](https://github.com/google/googletest): google的测试工具
+- [benchmark](https://github.com/google/benchmark): 测试相关速度的
+- [protobuf](https://github.com/protocolbuffers/protobuf): 传输序列化的
