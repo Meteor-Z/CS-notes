@@ -75,6 +75,8 @@ git push origin --delete feature/new-feature # 删除远程分支
 merge我认为是是直接合并到主分支，好像就是head头直接平移到branch上面的一样，  
 但是rebase不一样，开一个新branch之后，rebase像是从旧main上然后迁移到新main上，然后再提交上去。
 
+- rebase是变基，从原来的基变成现在的基。因为主分支有可能出现新的增长，这时候就需要变基
+
 ## 如何提交一个pr
 
 注意，提交的时候是提交一个branch上去，。然后将branch合并上去
