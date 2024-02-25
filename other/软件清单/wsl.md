@@ -26,7 +26,7 @@ sudo zypper install gcc
 sudo zypper install gcc-c++ # g++，恶臭的名字
 sudo zypper install gdb
 sudo zypper install cmake
-sudo zypper install clangd 
+sudo zypper install clang
 sudo zypper install clang-format
 sudo zypper install man-pages man-pages-zh_CN man-pages-posix # 中文man以及相关的 page
 sudo zypper install valgrind # 内存泄漏检测工具

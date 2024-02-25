@@ -24,9 +24,6 @@ class ThreadPool {
     class Task {
     public:
         Task() = default;
-        // 为什么不注释这个析构函数就不行了？？？？？？wc
-        // ~Task() = default;
-
         template <class Fun> Task(Fun&& f) : m_ptr { new Wrapper(std::move(f)) } {}
 
         void operator()() { m_ptr->call(); }

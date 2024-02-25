@@ -16,6 +16,8 @@ SortIncludes: false
 # 指针和引用的对齐: Left, Right, Middle
 PointerAlignment: Left
 
+# 模板换行
+AlwaysBreakTemplateDeclarations: Yes
 
 # 允许重新排版注释
 ReflowComments: true
