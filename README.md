@@ -53,6 +53,7 @@
 - [测试oj网站的cpu, 好有趣](https://zhuanlan.zhihu.com/p/28322626)
 - [gdb的实现原理](https://linux.cn/article-8943-1.html)
 - [看懂火焰图，火焰图基本入门](https://www.ruanyifeng.com/blog/2017/09/flame-graph.html)
+- [内存模型](https://zhuanlan.zhihu.com/p/382372072)
 - [volatile和atomic的区别，以及volatile的应用](https://github.com/CnTransGroup/EffectiveModernCppChinese/blob/master/src/7.TheConcurrencyAPI/item40.md)
 
 ## 博主
