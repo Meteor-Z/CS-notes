@@ -108,7 +108,7 @@ service OrderService {
 1. 注册一个 OrderService 对象
 2. 从OrderService 对象中得到 service.method_name， 根据这个name，从中 找到方法   func
 3. 找到对应的 request type 以及 response type
-4. 将请求体李米娜 pb_data 反序列化为 request type 对象，声明一个空的 response type 的对象
+4. 将请求体 pb_data 反序列化为 request type 对象，声明一个空的 response type 的对象
 5. func(request, response)
 6. 将 response 对象序列化成 pb_data, 做encode 然后塞入buffer里面，就会发送回包了。
 
