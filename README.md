@@ -34,10 +34,11 @@
 
 ## 视频
 
-- [性能优化 往数组里写入0为何比写入1更快？详解缓存的工作机制](https://www.bilibili.com/video/BV1gu41117bW/?spm_id_from=333.880.my_history.page.click&vd_source=f1c89669d341702064db968ba68bdc30)
+- [性能优化 往数组里写入0为何比写入1更快？详解缓存的工作机制](https://www.bilibili.com/video/BV1gu41117bW)
 - [git成熟项目的工作流](https://www.bilibili.com/video/BV19e4y1q7JJ/)
 - [内存泄漏，以及为什么不要继承STL](https://www.youtube.com/watch?v=LKKmPAQFNgE)
-- [https的原理，CA机构](https://www.bilibili.com/video/BV1uY4y1D7Ng/?spm_id_from=333.999.0.0&vd_source=f1c89669d341702064db968ba68bdc30)
+- [https的原理，CA机构](https://www.bilibili.com/video/BV1uY4y1D7Ng)
+- [UB行为以及相关后果](https://www.bilibili.com/video/BV1iF4m1L7MB)
 
 ## 文章
 
