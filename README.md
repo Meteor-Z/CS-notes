@@ -1,6 +1,6 @@
 # CS-notes
 
-这个是我的学习笔记，以前叫做`university-study`,但是跟着[zwx](https://github.com/zweix123/CS-notes)的博客，遂改成了`CS-notes`,他的博客对我帮助很大，十分感谢他。
+这个是我的学习笔记，以前叫做`university-study`,但是跟着[zwx](https://github.com/zweix123/CS-notes)的博客，遂改成了`CS-notes`,他的博客对我帮助很大，十分感谢他。下面的文章具体可以访问我的个人网站：[liuzecehn.top](https://liuzechen.top/)
 
 ## 提问的艺术
 
