@@ -41,7 +41,6 @@ A端通过网络调用B端口的参数，需要将调用参数进行数据化成
 
 多个网络接口IO注册到同一个复用器上，当用户调用了相关select,那么整个进程都会堵塞，内核会监视所有select负责的socket,其中一个数据准备好了，select就会返回，用户调用read等函数，就会从内核态拷贝到用户进程。
 
-
 ### Reactor
 
 主从Reactor, Reactor负责监听和分配事件，主线程中会有一个epoll事件，然后如果发生了可读事件，那么就会唤醒，获取到主Reactor得到的clientfd,得到的clientfd会将这个fd发送给subReactor，然后让subReactor监听可读可写，mainReactor只是分配工作。
