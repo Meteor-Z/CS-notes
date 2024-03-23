@@ -90,3 +90,13 @@ merge我认为是是直接合并到主分支，好像就是head头直接平移�
 ## 修改默认编辑器为 nvim
 
 - 修改默认编辑器为vim：`git config core.editor nvim`
+
+## 添加和删除本地第三方库
+
+```shell
+# 添加
+git submodule add http链接 ./third_party/xxx
+# 删除
+
+
+```
