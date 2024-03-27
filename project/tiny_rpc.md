@@ -22,7 +22,8 @@
   - 因为在执行到构造函数的时候，就会开辟线程，要等到一些对象初始化完之后，你才能够使用开辟的线程去处理任务，这里使用了`信号量`的机制去控制这个线程的进行
 - 在Linux中一切都是文件，`Everything is file`，因为最终会将数据放到`epoll`中进行处理，那么这里要处理函数怎么办？其实就是`epoll_event`,`epoll_event.data.ptr`是一个`void*`，将FdEvent绑定到这个上面，获取获取到`Fdevent`,获取其中的`函数`，然后加入到本地的pending任务中，然后最后执行就可以了。
   - 函数判断的时候其实跟位运算的差不多似的,（使用的是位掩码）所以这里实际上应该是`trigger_event.events & EPOLLIN`，如果说要取消，那么大致是`m_listen_events.events &= (~EPOLLIN);`，这样取反就可以了
-- 文件描述符：当前
+- `TcpConnection`代表是的是客户端与服务端的一条连接，一般服务端是固定的，那么当一条客户端与服务端连接成功了，那么就有有一条`TcpConnection`的连接，注意：`TcpConnection`中，会有一个`EventLoop`对象，相当于一个绑定，`一个TcpConnection中随机得到一个EventLoop`，然后将处理事件加入到`EventLoop`中。
+- 客户端发送的时候发送的直接是`AbstraceProtocol`这样的类，然后将其
 
 ## 面试的
 
@@ -80,7 +81,10 @@
   - 这里申请的文件描述符是需要需要申请非堵塞：因为客户端当有多个connect连接的时候，如果有一连接都断开的客户端，那么服务端accept就会堵塞，这时候就会一直杜塞到这里，所以说要设置成非堵塞。
 - 函数处理的时候，统一使用的是`std::function<void()>`，虽然说`std::function<void()>`有性能损耗，但是他使用起来比较方便。
 - 设置非堵塞的地方：
-  - `setsockopt(m_listenfd, SOL_SOCKET, SO_REUSEPORT, &valid, sizeof(valid));`：减少非堵塞的情况。`处于time_wait`状态的不能用，这里要这样处理
+  - `setsockopt(m_listenfd, SOL_SOCKET, SO_REUSEPORT, &valid, sizeof(valid));`：减少非堵塞的情况。`处于time_wait`状态的不能用，这里要这样处理。
+- 如何优雅的关闭
+  - Tcp连接建立的时候，其实是建立两个相互不干扰的流的，输入和输出流，如果说直接调用`close(fd)`，那么就会同时关闭这两条流。
+  - 因为虽然输出输出完了，但是可能她还没接受完，所以说你就需要使用`shutdown()`关闭一方的流，否则数据的传输可能出现问题。
 
 ## 项目代码构建
 
